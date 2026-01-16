@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* 1. Force the dark variant to work whenever the 'dark' class is present */
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  /* 2. Set default background colors so the page isn't white by default */
+  .dark body {
+    background-color: #0f172a; /* Slate 900 */
+    color: #f8fafc;           /* Slate 50 */
+  }
+
+  body {
+    @apply transition-colors duration-300 antialiased;
+  }
+}
