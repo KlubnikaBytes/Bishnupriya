@@ -1,351 +1,302 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sun, Moon, ShoppingCart, Search, Menu, X, Phone, User, LogOut, Package, ChevronDown } from 'lucide-react';
+import { 
+  Sun, Moon, ShoppingCart, Search, Menu, X, 
+  Phone, User, LogOut, Package, ChevronDown, ChevronRight, 
+  MapPin, Truck 
+} from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const Navbar = ({ darkMode, setDarkMode, cartCount }) => {
+const Navbar = ({ darkMode, setDarkMode, cartCount = 0 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   
-  // Auth State
   const [user, setUser] = useState(null);
-  
   const navigate = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
 
-  // --- HELPER: Read User Data Safely ---
-  const getUserFromStorage = () => {
+  const getUserFromStorage = useCallback(() => {
     try {
       const token = localStorage.getItem('token');
       const userData = localStorage.getItem('user');
-      if (token && userData) {
-        return JSON.parse(userData);
-      }
-      return null;
+      return (token && userData) ? JSON.parse(userData) : null;
     } catch (error) {
-      console.error("Error parsing user data:", error);
       return null;
+    }
+  }, []);
+
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      navigate(`/store?search=${encodeURIComponent(searchQuery)}`);
+      setMobileSearchOpen(false);
+      setSearchQuery("");
     }
   };
 
-  // --- SCROLL EFFECT ---
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // --- AUTH CHECK & EVENT LISTENER ---
-  useEffect(() => {
-    setUser(getUserFromStorage());
-    const handleAuthChange = () => {
-      setUser(getUserFromStorage());
-    };
-    window.addEventListener('auth-change', handleAuthChange);
-    return () => {
-      window.removeEventListener('auth-change', handleAuthChange);
-    };
-  }, []); 
-
-  useEffect(() => {
-     setUser(getUserFromStorage());
-  }, [location]);
-
-
-  // --- LOGOUT LOGIC ---
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     window.dispatchEvent(new Event("auth-change"));
     setIsProfileOpen(false);
-    setIsOpen(false); 
+    setIsOpen(false);
     navigate('/');
   };
 
-  // Theme Logic
+  const navTo = (path) => {
+    navigate(path);
+    setIsOpen(false);
+    setMobileSearchOpen(false);
+  };
+
   useEffect(() => {
-    const root = window.document.documentElement;
-    if (darkMode) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [darkMode]);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setUser(getUserFromStorage());
+    const handleAuthChange = () => setUser(getUserFromStorage());
+    window.addEventListener('auth-change', handleAuthChange);
+    return () => window.removeEventListener('auth-change', handleAuthChange);
+  }, [getUserFromStorage]);
+
+  useEffect(() => {
+    setUser(getUserFromStorage());
+    setIsOpen(false);
+  }, [location, getUserFromStorage]);
 
   return (
-    <nav 
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-100 dark:border-slate-800 shadow-sm' 
-          : 'bg-white dark:bg-slate-900 border-b border-transparent'
-      }`}
-    >
+    // Sticky ensures it doesn't overlap the first section, but stays fixed on scroll
+    <nav className={`sticky top-0 z-[100] transition-all duration-500 ${
+      isScrolled 
+        ? 'py-2 bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl shadow-2xl border-b border-white/20' 
+        : 'py-0 bg-white dark:bg-slate-950 border-b border-transparent'
+    }`}>
       
-      {/* Top Mini Bar - Hidden on scroll to save space */}
-      <motion.div 
-        initial={{ height: 'auto', opacity: 1 }}
-        animate={{ height: isScrolled ? 0 : 'auto', opacity: isScrolled ? 0 : 1 }}
-        className="bg-slate-900 dark:bg-black text-white text-[10px] overflow-hidden"
-      >
-        <div className="max-w-7xl mx-auto px-6 py-1.5 flex justify-between items-center uppercase tracking-widest font-medium">
-          <span className="hidden sm:inline">Free Delivery on orders above ₹5000</span>
-          <span className="sm:hidden">Free Delivery ₹5000</span>
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 hover:text-green-400 transition-colors cursor-pointer">
-              <Phone size={10} /> +91 98765 43210
-            </span>
-          </div>
-        </div>
-      </motion.div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-        <div className="flex justify-between items-center gap-4">
-          
-          {/* Logo Section */}
-          <div 
-            onClick={() => navigate('/')} 
-            className="flex items-center gap-3 cursor-pointer group flex-shrink-0"
+      {/* Top Bar - Solid Colors, disappears on scroll to maximize glass space */}
+      <AnimatePresence>
+        {!isScrolled && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="bg-slate-950 dark:bg-black text-white py-2.5 hidden sm:block"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-green-500/20 transition-transform group-hover:scale-105 group-hover:rotate-3">
+            <div className="max-w-7xl mx-auto px-6 flex justify-between items-center text-[12px] font-bold tracking-[0.15em] uppercase">
+              <div className="flex items-center gap-8">
+                <span className="flex items-center gap-2 text-emerald-400">
+                  <Truck size={14} /> FREE SHIPPING ABOVE ₹5000
+                </span>
+                <span className="hidden md:flex items-center gap-2 hover:text-emerald-400 transition-colors cursor-pointer">
+                  <MapPin size={14} /> TRACK ORDER
+                </span>
+              </div>
+              <a href="tel:+919711090909" className="hover:text-emerald-400 transition-colors">
+                SUPPORT: +91 97110 90909
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4">
+        <div className="flex justify-between items-center gap-6 lg:gap-12">
+          
+          {/* Logo Branding - Authoritative Size */}
+          <div onClick={() => navTo('/')} className="flex items-center gap-4 cursor-pointer group shrink-0">
+            <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-tr from-emerald-600 to-teal-500 rounded-2xl flex items-center justify-center text-white font-black text-xl lg:text-3xl shadow-xl transition-all duration-500 group-hover:rotate-6 group-hover:scale-110">
               BE
             </div>
-            <div className="hidden sm:block">
-              <h1 className="text-xl font-bold leading-none text-slate-900 dark:text-white uppercase tracking-tighter group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+            <div className="hidden xs:block">
+              <h1 className="text-xl lg:text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tighter leading-none">
                 Bishnupriya
               </h1>
-              <p className="text-[10px] text-green-600 font-bold tracking-[0.2em] uppercase text-nowrap">Electricals</p>
+              <p className="text-[10px] lg:text-[12px] text-emerald-600 dark:text-emerald-400 font-black tracking-[0.4em] uppercase mt-1">Electricals</p>
             </div>
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8 font-semibold text-sm text-slate-600 dark:text-slate-300">
-            {['Home', 'Store', 'Categories', 'Bulk Inquiry'].map((item) => (
+          {/* Desktop Navigation - Increased font for readability */}
+          <div className="hidden lg:flex items-center gap-8 xl:gap-12 font-bold text-[17px] tracking-tight">
+            {[
+              { name: 'Home', path: '/' },
+              { name: 'Online Store', path: '/store' },
+              { name: 'Categories', path: '/categories' },
+              { name: 'Bulk Inquiry', path: '/bulk-inquiry' }
+            ].map((link) => (
               <button 
-                key={item}
-                onClick={() => navigate(item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`)}
-                className="relative hover:text-green-600 dark:hover:text-green-400 transition-colors py-2 group"
+                key={link.name} 
+                onClick={() => navTo(link.path)}
+                className={`relative py-2 transition-all duration-300 ${
+                  location.pathname === link.path 
+                  ? 'text-emerald-600 dark:text-emerald-400' 
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
               >
-                {item}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+                {link.name}
+                {location.pathname === link.path && (
+                  <motion.div layoutId="navline" className="absolute -bottom-1 left-0 right-0 h-1 bg-emerald-500 rounded-full" />
+                )}
               </button>
             ))}
           </div>
 
-          {/* Right Section */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          {/* User Interaction Suite */}
+          <div className="flex items-center gap-2 md:gap-4">
             
-            {/* Desktop Search */}
+            {/* Professional Search Input */}
             <div className="hidden md:block relative group">
+              <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
               <input 
                 type="text" 
-                placeholder="Search products..." 
-                className="bg-gray-100 dark:bg-slate-800 text-slate-700 dark:text-gray-200 text-sm rounded-full py-2.5 pl-10 pr-4 w-48 focus:w-64 transition-all duration-300 outline-none border border-transparent focus:border-green-500 focus:bg-white dark:focus:bg-slate-800 focus:ring-4 focus:ring-green-500/10 placeholder:text-slate-400"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearch}
+                placeholder="Search premium electricals..." 
+                className="bg-slate-100 dark:bg-slate-800 dark:text-white text-[15px] font-medium rounded-2xl py-3 pl-12 pr-4 w-40 lg:w-60 xl:w-72 focus:w-80 focus:bg-white focus:ring-4 focus:ring-emerald-500/10 outline-none transition-all duration-500"
               />
-              <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-green-500 transition-colors" />
             </div>
 
-            {/* Mobile Search Icon */}
-            <button 
-              onClick={() => setMobileSearchOpen(!mobileSearchOpen)} 
-              className="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors"
-            >
-              {mobileSearchOpen ? <X size={20} /> : <Search size={20} />}
+            {/* Mobile Search */}
+            <button onClick={() => setMobileSearchOpen(!mobileSearchOpen)} className="md:hidden p-3 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-all">
+              {mobileSearchOpen ? <X size={24} /> : <Search size={24} />}
             </button>
 
-            {/* Theme Toggle */}
-            <div 
-              onClick={() => setDarkMode(!darkMode)}
-              className="relative w-12 h-6 bg-slate-200 dark:bg-slate-700 rounded-full p-1 cursor-pointer transition-colors duration-300 flex-shrink-0 hover:bg-slate-300 dark:hover:bg-slate-600"
-            >
-              <motion.div 
-                animate={{ x: darkMode ? 24 : 0 }}
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                className="w-4 h-4 bg-white dark:bg-slate-800 rounded-full flex items-center justify-center shadow-sm"
+            {/* Theme & Profile */}
+            <div className="flex items-center gap-1 md:gap-3">
+              <button 
+                onClick={() => setDarkMode(!darkMode)}
+                className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-yellow-400 hover:scale-110 transition-all active:scale-95"
               >
-                {darkMode ? <Moon size={10} className="text-blue-400" /> : <Sun size={10} className="text-orange-500" />}
-              </motion.div>
+                {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+
+              <div className="hidden sm:block relative">
+                {user ? (
+                  <div onMouseEnter={() => setIsProfileOpen(true)} onMouseLeave={() => setIsProfileOpen(false)}>
+                    <button className="flex items-center gap-3 p-1.5 bg-slate-100 dark:bg-slate-800 rounded-2xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+                      <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-sm">
+                        {user.fullName?.[0].toUpperCase()}
+                      </div>
+                      <ChevronDown size={16} className="dark:text-white mr-1" />
+                    </button>
+                    <AnimatePresence>
+                      {isProfileOpen && (
+                        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute right-0 mt-3 w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-2xl rounded-3xl border dark:border-slate-800 p-2 z-50">
+                          <div className="px-4 py-4 border-b dark:border-slate-800 mb-2">
+                            <p className="text-sm font-black dark:text-white truncate">{user.fullName}</p>
+                            <p className="text-[11px] text-slate-500 font-bold mt-1 tracking-wide">{user.mobile}</p>
+                          </div>
+                          <button onClick={() => navTo('/my-orders')} className="w-full flex items-center gap-4 px-4 py-3 text-[15px] font-bold dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl transition-colors"><Package size={20} className="text-emerald-500"/> My Orders</button>
+                          <button onClick={handleLogout} className="w-full flex items-center gap-4 px-4 py-3 text-[15px] font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-2xl transition-colors mt-1"><LogOut size={20}/> Sign Out</button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <button onClick={() => navTo('/login')} className="p-3 bg-emerald-600 text-white rounded-2xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-600/20">
+                    <User size={22} />
+                  </button>
+                )}
+              </div>
             </div>
 
-            <div className="h-6 w-[1px] bg-gray-200 dark:bg-slate-700 mx-1 hidden sm:block"></div>
-            
-            {/* Auth Section */}
-            {user ? (
-              <div 
-                className="relative z-50"
-                onMouseEnter={() => setIsProfileOpen(true)}
-                onMouseLeave={() => setIsProfileOpen(false)}
-              >
-                <button 
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full hover:bg-gray-50 dark:hover:bg-slate-800 transition-all border border-transparent hover:border-gray-200 dark:hover:border-slate-700"
-                >
-                  <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 flex items-center justify-center font-bold text-xs border border-green-200 dark:border-green-800">
-                    {user.fullName ? user.fullName.charAt(0).toUpperCase() : <User size={14} />}
-                  </div>
-                  <ChevronDown size={14} className={`text-slate-400 transition-transform duration-200 ${isProfileOpen ? 'rotate-180' : ''}`} />
-                </button>
-
-                <AnimatePresence>
-                  {isProfileOpen && (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-gray-100 dark:border-slate-700 overflow-hidden ring-1 ring-black/5"
-                    >
-                      <div className="p-4 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
-                        <p className="text-sm font-bold text-slate-900 dark:text-white truncate">
-                          {user.fullName || 'Valued Customer'}
-                        </p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5 font-medium">
-                          {user.mobile}
-                        </p>
-                      </div>
-
-                      <div className="p-2">
-                        <button 
-                          onClick={() => { navigate('/my-orders'); setIsProfileOpen(false); }}
-                          className="w-full text-left px-3 py-2.5 text-sm text-slate-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-700 rounded-lg flex items-center gap-3 transition-colors group"
-                        >
-                          <div className="p-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-md text-blue-600 dark:text-blue-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 transition-colors">
-                            <Package size={16} />
-                          </div>
-                          <span className="font-medium">My Orders</span>
-                        </button>
-                        
-                        <button 
-                          onClick={handleLogout}
-                          className="w-full text-left px-3 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg flex items-center gap-3 transition-colors group mt-1"
-                        >
-                          <div className="p-1.5 bg-red-50 dark:bg-red-900/20 rounded-md text-red-500 group-hover:bg-red-100 dark:group-hover:bg-red-900/40 transition-colors">
-                            <LogOut size={16} />
-                          </div>
-                          <span className="font-medium">Sign Out</span>
-                        </button>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ) : (
-              <button 
-                onClick={() => navigate('/login')}
-                className="flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-gray-100 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <User size={16} /> <span className="hidden sm:inline">Login</span>
-              </button>
-            )}
-
-            {/* Cart Icon with Badge */}
-            <div 
-              className="relative group cursor-pointer p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors"
-              onClick={() => navigate('/cart')}
-            >
-              <ShoppingCart size={22} className="text-slate-600 dark:text-slate-300 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors" />
+            {/* Designer Cart Badge */}
+            <button onClick={() => navTo('/cart')} className="relative p-3 bg-slate-900 dark:bg-white rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-xl">
+              <ShoppingCart size={22} className="text-white dark:text-slate-950" />
               {cartCount > 0 && (
-                <span className="absolute top-0 right-0 bg-green-500 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center ring-2 ring-white dark:ring-slate-900 animate-pulse">
+                <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[11px] font-black rounded-full w-5 h-5 flex items-center justify-center border-2 border-white dark:border-slate-950">
                   {cartCount}
                 </span>
               )}
-            </div>
+            </button>
 
-            {/* Mobile Menu Toggle */}
-            <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 text-slate-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors">
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {/* Mobile Menu Icon */}
+            <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-3 dark:text-white">
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Search Bar */}
+        {/* Mobile Search Drawer */}
         <AnimatePresence>
           {mobileSearchOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:hidden overflow-hidden mt-4"
-            >
+            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="md:hidden mt-4 overflow-hidden">
               <div className="relative">
                 <input 
                   type="text" 
-                  placeholder="Search products..." 
-                  className="w-full bg-gray-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded-xl py-3 pl-10 pr-4 outline-none border border-transparent focus:border-green-500 focus:bg-white dark:focus:bg-slate-800 transition-all shadow-inner"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleSearch}
                   autoFocus
+                  placeholder="Search premium products..." 
+                  className="w-full bg-slate-100 dark:bg-slate-800 dark:text-white text-lg font-bold rounded-2xl py-4 pl-12 pr-4 outline-none border-2 border-transparent focus:border-emerald-500 shadow-inner"
                 />
-                <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Search size={22} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-       {/* Mobile Navigation Menu */}
+      {/* Responsive Mobile Drawer */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden overflow-hidden bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 shadow-xl absolute w-full left-0"
-          >
-            <div className="flex flex-col p-4 space-y-2">
-              {['Home', 'Store', 'Categories', 'Bulk Inquiry'].map((item) => (
-                <button 
-                  key={item}
-                  className="text-left px-4 py-3 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800 font-medium transition-colors flex justify-between items-center" 
-                  onClick={() => { 
-                    navigate(item === 'Home' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`); 
-                    setIsOpen(false); 
-                  }}
-                >
-                  {item}
-                  <ChevronRight size={16} className="text-slate-400" />
-                </button>
-              ))}
-              
-              <div className="h-[1px] bg-gray-100 dark:bg-slate-800 my-2"></div>
+          <>
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-slate-950/60 backdrop-blur-md z-[110]"
+            />
+            <motion.div 
+              initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className="fixed top-0 right-0 h-full w-[310px] bg-white dark:bg-slate-950 shadow-2xl z-[120] flex flex-col"
+            >
+              <div className="p-8 flex justify-between items-center border-b dark:border-slate-800">
+                <span className="text-xl font-black uppercase dark:text-white">Navigation</span>
+                <button onClick={() => setIsOpen(false)} className="p-2 bg-slate-100 dark:bg-slate-800 rounded-xl dark:text-white"><X size={26} /></button>
+              </div>
 
-              {user ? (
-                <>
-                  <div className="px-4 py-2 flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 flex items-center justify-center font-bold text-sm">
-                      {user.fullName ? user.fullName.charAt(0).toUpperCase() : <User size={18} />}
+              <div className="flex-1 overflow-y-auto p-6 space-y-3">
+                {[
+                  { name: 'Home', path: '/' },
+                  { name: 'Online Store', path: '/store' },
+                  { name: 'Categories', path: '/categories' },
+                  { name: 'Bulk Inquiry', path: '/bulk-inquiry' }
+                ].map((link) => (
+                  <button key={link.name} onClick={() => navTo(link.path)} className="w-full flex justify-between items-center p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-900 dark:text-white text-[18px] font-black transition-all">
+                    {link.name} <ChevronRight size={20} className="text-emerald-500" />
+                  </button>
+                ))}
+              </div>
+
+              <div className="p-8 bg-slate-50 dark:bg-slate-900/50">
+                {user ? (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 p-2">
+                      <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl">
+                        {user.fullName?.[0].toUpperCase()}
+                      </div>
+                      <div className="overflow-hidden">
+                        <p className="text-lg font-black dark:text-white truncate">{user.fullName}</p>
+                        <p className="text-xs text-slate-500 font-bold">{user.mobile}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-bold text-slate-900 dark:text-white">{user.fullName || 'User'}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">{user.mobile}</p>
-                    </div>
+                    <button onClick={() => navTo('/my-orders')} className="w-full flex items-center gap-4 p-4 text-md font-black dark:text-white bg-white dark:bg-slate-800 rounded-2xl shadow-sm"><Package size={22} className="text-emerald-500"/> Order History</button>
+                    <button onClick={handleLogout} className="w-full p-4 text-md font-black text-red-500 border-2 border-red-500/10 rounded-2xl">Sign Out</button>
                   </div>
-                  <button 
-                    className="text-left px-4 py-3 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800 flex items-center gap-3 font-medium" 
-                    onClick={() => { navigate('/my-orders'); setIsOpen(false); }}
-                  >
-                    <Package size={18} className="text-blue-500" /> View Orders
+                ) : (
+                  <button onClick={() => navTo('/login')} className="w-full bg-slate-950 dark:bg-white text-white dark:text-slate-950 font-black py-5 rounded-3xl text-lg shadow-xl">
+                    LOG IN / SIGN UP
                   </button>
-                  <button 
-                    className="text-left px-4 py-3 rounded-xl text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 flex items-center gap-3 font-medium" 
-                    onClick={handleLogout}
-                  >
-                    <LogOut size={18} /> Sign Out
-                  </button>
-                </>
-              ) : (
-                <button 
-                  className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold py-3 rounded-xl flex items-center justify-center gap-2 mt-2" 
-                  onClick={() => { navigate('/login'); setIsOpen(false); }}
-                >
-                  <User size={18} /> Login / Register
-                </button>
-              )}
-            </div>
-          </motion.div>
+                )}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
