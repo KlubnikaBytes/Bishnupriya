@@ -24,7 +24,7 @@ const categoryConfig = {
   "Fans": { 
     icon: <Fan size={24} />, 
     desc: "Decorative, BLDC, and exhaust fans.",
-    image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?q=80&w=800&auto=format&fit=crop"
+    image: "https://tse3.mm.bing.net/th/id/OIP.mss4uFLbv791JfvRh0uH8QHaEO?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   "Distribution Boards": { 
     icon: <Server size={24} />, 
@@ -34,7 +34,7 @@ const categoryConfig = {
   "Smart Home": { 
     icon: <Home size={24} />, 
     desc: "WiFi bulbs, smart plugs, and sensors.",
-    image: "https://images.unsplash.com/photo-1558002038-1091a1661116?q=80&w=800&auto=format&fit=crop"
+    image: "https://tse3.mm.bing.net/th/id/OIP.JyzY8HlMntCk4AVUqNxL1AHaE8?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   "Industrial": { 
     icon: <Server size={24} />, 

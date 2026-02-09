@@ -5,9 +5,13 @@ import { useNavigate } from 'react-router-dom';
 const Footer = () => {
   const navigate = useNavigate();
 
+  // Helper for consistent link styling
+  const linkStyle = "hover:text-white cursor-pointer transition hover:translate-x-1 duration-200";
+
   return (
     <footer className="bg-black text-white pt-16 pb-4 border-t border-gray-900">
       <div className="max-w-7xl mx-auto px-6">
+        
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           
@@ -26,24 +30,22 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-6">Quick Links</h3>
             <ul className="space-y-3 text-gray-400 text-sm">
-              <li onClick={() => navigate('/')} className="hover:text-white cursor-pointer transition hover:translate-x-1 duration-200">Home</li>
-              <li onClick={() => navigate('/')} className="hover:text-white cursor-pointer transition hover:translate-x-1 duration-200">Store</li>
-              {/* LINKED HERE: */}
+              <li onClick={() => navigate('/')} className={linkStyle}>Home</li>
+              <li onClick={() => navigate('/store')} className={linkStyle}>Store</li>
               <li onClick={() => navigate('/contact')} className="hover:text-green-500 cursor-pointer transition hover:translate-x-1 duration-200 font-medium">Contact Us</li>
-              <li className="hover:text-white cursor-pointer transition hover:translate-x-1 duration-200">Check Order</li>
-              
+              <li onClick={() => navigate('/my-orders')} className={linkStyle}>Check Order</li>
             </ul>
           </div>
 
-          {/* Company Policy */}
+          {/* Company Policy - ESSENTIAL FOR RAZORPAY */}
           <div>
             <h3 className="text-lg font-bold mb-6">Company</h3>
             <ul className="space-y-3 text-gray-400 text-sm">
-              <li className="hover:text-white cursor-pointer transition hover:translate-x-1 duration-200">About Us</li>
-              <li className="hover:text-white cursor-pointer transition hover:translate-x-1 duration-200">Testimonials</li>
-              <li className="hover:text-white cursor-pointer transition hover:translate-x-1 duration-200">Privacy Policy</li>
-              <li className="hover:text-white cursor-pointer transition hover:translate-x-1 duration-200">Return Policy</li>
-              <li className="hover:text-white cursor-pointer transition hover:translate-x-1 duration-200">Terms & Conditions</li>
+              <li onClick={() => navigate('/about')} className={linkStyle}>About Us</li>
+              <li onClick={() => navigate('/testimonials')} className={linkStyle}>Testimonials</li>
+              <li onClick={() => navigate('/privacy-policy')} className={linkStyle}>Privacy Policy</li>
+              <li onClick={() => navigate('/return-policy')} className={linkStyle}>Return Policy</li>
+              <li onClick={() => navigate('/terms')} className={linkStyle}>Terms & Conditions</li>
             </ul>
           </div>
 
@@ -67,7 +69,9 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-[11px] text-gray-500 uppercase tracking-widest">
           <p>Copyright © 2026 Bishnupriya Electrical. All rights reserved.</p>
-          <p className="mt-4 md:mt-0 font-bold text-gray-400">GSTIN - 19AJNPG1966F1ZZ</p>
+          <div className="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0">
+             <p className="font-bold text-gray-400">GSTIN - 19AJNPG1966F1ZZ</p>
+          </div>
         </div>
       </div>
     </footer>

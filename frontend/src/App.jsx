@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// Context Provider
+import { CartProvider } from './context/CartContext';
+
 // Component Imports
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Brands from './components/Brands';
 import Deals from './components/Deals';
-import Categories from './components/Categories'; // Ensure this file exists as discussed
+import Categories from './components/Categories';
 import Featured from './components/Featured';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
@@ -15,12 +18,28 @@ import Contact from './components/Contact';
 import Store from './components/Store';
 import ProductDetails from './components/ProductDetails';
 import Cart from './components/Cart'; 
-import BulkInquiry from './components/BulkInquiry'; // Ensure this file exists as discussed
+import BulkInquiry from './components/BulkInquiry';
+import AdminPanel from './components/AdminPanel';
+import MyOrders from './components/MyOrders';
 
-// Create a separate component for the Landing Page to keep Routes clean
-const Home = ({ darkMode, setDarkMode }) => (
+// --- NEW POLICY IMPORTS ---
+import AboutUs from './pages/AboutUs';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import ReturnPolicy from './pages/ReturnPolicy';
+import TermsAndConditions from './pages/TermsAndConditions';
+import TestimonialsPage from './pages/TestimonialsPage';
+import ShippingPolicy from './pages/ShippingPolicy'; // Added for Razorpay compliance
+
+const PageLayout = ({ children, darkMode, setDarkMode }) => (
   <>
     <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+    {children}
+    <Footer />
+  </>
+);
+
+const Home = () => (
+  <>
     <Hero />
     <Brands />
     <main className="pb-20">
@@ -29,19 +48,16 @@ const Home = ({ darkMode, setDarkMode }) => (
       <Featured />
       <Testimonials />
     </main>
-    <Footer />
   </>
 );
 
 function App() {
-  // Theme State
   const [darkMode, setDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) return savedTheme === 'dark';
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
-  // Theme Effect
   useEffect(() => {
     const root = window.document.documentElement;
     if (darkMode) {
@@ -53,124 +69,34 @@ function App() {
     }
   }, [darkMode]);
 
-  // --- CART LOGIC START ---
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-
-  // Save Cart to LocalStorage whenever it changes
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
-
-  // Add Item to Cart
-  const addToCart = (product, qty = 1) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
-      if (existingItem) {
-        // If exists, update quantity
-        return prevCart.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + qty } : item
-        );
-      } else {
-        // If new, add to array
-        return [...prevCart, { ...product, qty: qty }];
-      }
-    });
-    // You can replace this alert with a toast notification later
-    alert(`${product.name} added to cart!`); 
-  };
-
-  // Remove Item
-  const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-  };
-
-  // Update Quantity (+/-)
-  const updateQuantity = (id, delta) => {
-    setCart((prevCart) => 
-      prevCart.map((item) => {
-        if (item.id === id) {
-          const newQty = Math.max(1, item.qty + delta);
-          return { ...item, qty: newQty };
-        }
-        return item;
-      })
-    );
-  };
-  // --- CART LOGIC END ---
-
   return (
-    <Router>
-      <div className={darkMode ? 'dark' : ''}>
-        <div className="min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-300 antialiased">
-
+    <CartProvider>
+      <Router>
+        <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300 antialiased">
           <Routes>
-            {/* Route 1: Home Page */}
-            <Route path="/" element={<Home darkMode={darkMode} setDarkMode={setDarkMode} />} />
-
-            {/* Route 2: Login/Signup */}
+            <Route path="/admin" element={<AdminPanel />} />
             <Route path="/login" element={<Auth />} />
-            
-            {/* Route 3: Store Page (Pass addToCart) */}
-            <Route path="/store" element={
-              <>
-                <Navbar darkMode={darkMode} setDarkMode={setDarkMode} cartCount={cart.length} />
-                <Store addToCart={addToCart} /> 
-                <Footer />
-              </>
-            } />
-            
-            {/* Route 4: Product Details (Pass addToCart) */}
-            <Route path="/product/:id" element={
-              <>
-                <Navbar darkMode={darkMode} setDarkMode={setDarkMode} cartCount={cart.length} />
-                <ProductDetails addToCart={addToCart} />
-                <Footer />
-              </>
-            } />
 
-            {/* Route 5: Cart Page */}
-            <Route path="/cart" element={
-              <>
-                <Navbar darkMode={darkMode} setDarkMode={setDarkMode} cartCount={cart.length} />
-                <Cart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />
-                <Footer />
-              </>
-            } />
-            
-            {/* Route 6: Categories Page */}
-            <Route path="/categories" element={
-              <>
-                <Navbar darkMode={darkMode} setDarkMode={setDarkMode} cartCount={cart.length} />
-                <Categories />
-                <Footer />
-              </>
-            } />
+            <Route path="/" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><Home /></PageLayout>} />
+            <Route path="/store" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><Store /></PageLayout>} />
+            <Route path="/product/:id" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><ProductDetails /></PageLayout>} />
+            <Route path="/cart" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><Cart /></PageLayout>} />
+            <Route path="/my-orders" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><MyOrders /></PageLayout>} />
+            <Route path="/categories" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><Categories /></PageLayout>} />
+            <Route path="/bulk-inquiry" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><BulkInquiry /></PageLayout>} />
+            <Route path="/contact" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><Contact /></PageLayout>} />
 
-            {/* Route 7: Bulk Inquiry Page */}
-            <Route path="/bulk-inquiry" element={
-              <>
-                <Navbar darkMode={darkMode} setDarkMode={setDarkMode} cartCount={cart.length} />
-                <BulkInquiry />
-                <Footer />
-              </>
-            } />
-
-            {/* Route 8: Contact Page */}
-            <Route path="/contact" element={
-              <>
-                <Navbar darkMode={darkMode} setDarkMode={setDarkMode} cartCount={cart.length} />
-                <Contact />
-                <Footer />
-              </>
-            } />
+            {/* --- POLICY ROUTES --- */}
+            <Route path="/about" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><AboutUs /></PageLayout>} />
+            <Route path="/testimonials" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><TestimonialsPage /></PageLayout>} />
+            <Route path="/privacy-policy" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><PrivacyPolicy /></PageLayout>} />
+            <Route path="/return-policy" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><ReturnPolicy /></PageLayout>} />
+            <Route path="/shipping-policy" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><ShippingPolicy /></PageLayout>} />
+            <Route path="/terms" element={<PageLayout darkMode={darkMode} setDarkMode={setDarkMode}><TermsAndConditions /></PageLayout>} />
           </Routes>
-
         </div>
-      </div>
-    </Router>
+      </Router>
+    </CartProvider>
   );
 }
 

@@ -1,34 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
+// Selected "Best Deal" items from your real-time inventory
 const slides = [
   {
     id: 1,
-    title: "Premium Electrical Solutions",
-    subtitle: "Powering your home with safety and style.",
-    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2070",
-    color: "bg-blue-600"
+    productId: "CS16A1MSW_WE", // Wiser Smart Switch
+    brand: "Schneider Electric",
+    title: "Wiser Smart Switch",
+    subtitle: "Transform your home with WiFi-enabled control. Compatible with Alexa & Google Home.",
+    image: "https://images.unsplash.com/photo-1558002038-1091a166111c?q=80&w=2070",
+    color: "bg-emerald-600"
   },
   {
     id: 2,
-    title: "Luxury Lighting Collection",
-    subtitle: "Illuminate your space with designer chandeliers.",
-    image: "https://images.unsplash.com/photo-1540932239986-30128078f3c5?q=80&w=2070",
+    productId: "SCFP301050", // Hush-Flo BLDC Fan
+    brand: "Goldmedal",
+    title: "Hush-Flo BLDC Fan",
+    subtitle: "Experience silence. Premium energy-saving technology with remote control.",
+    image: "https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=2070",
     color: "bg-amber-500"
   },
   {
     id: 3,
-    title: "Industrial Grade Gear",
-    subtitle: "Heavy-duty switchgear for professional projects.",
-    // FIXED: Using a highly reliable image of an industrial electrical panel/meter
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070", 
-    color: "bg-slate-700"
+    productId: "EZ9F76332", // Easy9 MCB 3-Pole
+    brand: "Schneider Electric",
+    title: "Easy9 MCB 3-Pole",
+    subtitle: "Industrial grade protection. 32A capacity with advanced breaking technology.",
+    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070",
+    color: "bg-blue-600"
   }
 ];
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
   // Auto-slide every 5 seconds
   useEffect(() => {
@@ -41,8 +49,13 @@ const Hero = () => {
   const nextSlide = () => setCurrent(current === slides.length - 1 ? 0 : current + 1);
   const prevSlide = () => setCurrent(current === 0 ? slides.length - 1 : current - 1);
 
+  const handleViewProduct = () => {
+    // Navigates to the specific product details page
+    navigate(`/product/${slides[current].productId}`);
+  };
+
   return (
-    <div className="relative h-[600px] w-full overflow-hidden bg-gray-900">
+    <div className="relative h-[600px] w-full overflow-hidden bg-slate-950">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -57,25 +70,31 @@ const Hero = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slides[current].image})` }}
           >
-            <div className="absolute inset-0 bg-black/50 dark:bg-black/70" />
+            {/* Dark gradient for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
           </div>
 
-          {/* Content */}
-          <div className="relative h-full max-w-7xl mx-auto px-6 flex flex-col justify-center items-start text-white">
-            <motion.span
+          {/* Content Container */}
+          <div className="relative h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-center items-start text-white">
+            <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className={`px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4 ${slides[current].color}`}
+              className="flex items-center gap-3 mb-4"
             >
-              New Arrival 2026
-            </motion.span>
+              <span className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${slides[current].color}`}>
+                Best Deal
+              </span>
+              <span className="text-sm font-bold text-slate-300 uppercase tracking-widest">
+                {slides[current].brand}
+              </span>
+            </motion.div>
             
             <motion.h1
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-5xl md:text-7xl font-black mb-6 leading-tight max-w-2xl"
+              className="text-5xl md:text-7xl font-black mb-6 leading-tight max-w-2xl text-white"
             >
               {slides[current].title}
             </motion.h1>
@@ -84,7 +103,7 @@ const Hero = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="text-lg md:text-xl text-gray-300 mb-10 max-w-lg"
+              className="text-lg md:text-xl text-slate-300 mb-10 max-w-lg font-medium"
             >
               {slides[current].subtitle}
             </motion.p>
@@ -93,41 +112,38 @@ const Hero = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="flex gap-4"
             >
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold transition-all transform hover:scale-105">
-                Shop Collection
-              </button>
-              <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-xl font-bold border border-white/30 transition-all">
-                View Catalog
-              </button>
             </motion.div>
           </div>
         </motion.div>
       </AnimatePresence>
 
       {/* Navigation Arrows */}
-      <button 
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/20 hover:bg-white/20 text-white transition-all z-10"
-      >
-        <ChevronLeft size={30} />
-      </button>
-      <button 
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-black/20 hover:bg-white/20 text-white transition-all z-10"
-      >
-        <ChevronRight size={30} />
-      </button>
+      <div className="absolute bottom-8 right-8 flex gap-4 z-10">
+        <button 
+          onClick={prevSlide}
+          className="p-4 rounded-full bg-white/10 hover:bg-emerald-600 text-white backdrop-blur-md border border-white/10 transition-all active:scale-95"
+          aria-label="Previous Slide"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button 
+          onClick={nextSlide}
+          className="p-4 rounded-full bg-white/10 hover:bg-emerald-600 text-white backdrop-blur-md border border-white/10 transition-all active:scale-95"
+          aria-label="Next Slide"
+        >
+          <ChevronRight size={24} />
+        </button>
+      </div>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
+      <div className="absolute bottom-8 left-8 lg:left-12 flex gap-3">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrent(index)}
-            className={`h-1.5 transition-all duration-300 rounded-full ${
-              current === index ? 'w-8 bg-blue-500' : 'w-4 bg-white/40'
+            className={`h-1.5 rounded-full transition-all duration-300 ${
+              current === index ? 'w-12 bg-emerald-500' : 'w-4 bg-white/20 hover:bg-white/40'
             }`}
           />
         ))}

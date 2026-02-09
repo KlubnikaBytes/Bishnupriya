@@ -37,7 +37,6 @@ const brandLogos = [
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/LuminousLogo_New(English).jpg",
     darkInvert: false,
   },
-  // PERFECT REPLACEMENT: Goldmedal Electricals (proven Indian electrical brand wiring/switches)
   {
     name: "Goldmedal",
     src: "https://commons.wikimedia.org/wiki/Special:FilePath/Goldmedal_Electricals_Logo.svg",
@@ -60,7 +59,10 @@ function BrandItem({ brand }) {
             referrerPolicy="no-referrer"
             className={[
               "max-h-10 md:max-h-12 max-w-[170px] w-auto object-contain",
-              "grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100",
+              // Mobile: Full color and opacity by default
+              "grayscale-0 opacity-100", 
+              // Desktop (md and up): Grayscale and lower opacity, color on hover
+              "md:grayscale md:opacity-60 md:group-hover:grayscale-0 md:group-hover:opacity-100", 
               "transition-all duration-300 cursor-pointer",
               brand.darkInvert ? "dark:brightness-0 dark:invert" : "",
             ].join(" ")}
