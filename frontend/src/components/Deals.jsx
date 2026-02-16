@@ -1,138 +1,72 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowRight, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-
-// 1. IMPORT STATIC DATA (Contains the working local images)
 import { itemsData as staticItems } from '../data/itemsData';
 
 const Deals = () => {
   const navigate = useNavigate();
   const [dealsData, setDealsData] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // --- ENVIRONMENT VARIABLE ---
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   const fetchDeals = async () => {
     try {
       setLoading(true);
-      // Fetch Live Data from Backend
       const res = await fetch(`${API_BASE_URL}/api/admin/inventory`);
       const dbData = await res.json();
-      
       const activeProducts = dbData.filter(item => !item.isDeleted);
 
-      // 2. IMAGE REPAIR & MERGE LOGIC
-      // We map through API data and replace images with local ones if the names match
       const productsWithLocalImages = activeProducts.map(dbItem => {
-        const localMatch = staticItems.find(
-          s => s.name.trim().toLowerCase() === dbItem.name.trim().toLowerCase()
-        );
-        return {
-          ...dbItem,
-          // PRIORITY: Use Local Image from assets if available, else fallback to DB
-          image: localMatch ? localMatch.image : dbItem.image
-        };
+        const localMatch = staticItems.find(s => s.name.trim().toLowerCase() === dbItem.name.trim().toLowerCase());
+        return { ...dbItem, image: localMatch ? localMatch.image : dbItem.image };
       });
 
-      // 3. SELECTION STRATEGY
-      // Try to find your specific "Best Deal" IDs first
-      const targetIds = ["CS16A1MSW_WE", "SCFP301050", "GL9C0203112", "EZ9F76132"];
-      let featuredDeals = targetIds.map(id => 
-        productsWithLocalImages.find(p => p.id === id || p._id === id)
-      ).filter(Boolean);
-
-      // FALLBACK: If specific IDs aren't found, take the first 4 products
-      if (featuredDeals.length === 0) {
-        featuredDeals = productsWithLocalImages.slice(0, 4);
-      }
-
-      setDealsData(featuredDeals);
+      const targetIds = ["SCFZ101948", "SCFP301050", "MUR-TEJAS-TFT18036", "GL9C0307136X"];
+      let featuredDeals = targetIds.map(id => productsWithLocalImages.find(p => p.id === id || p._id === id)).filter(Boolean);
+      setDealsData(featuredDeals.length > 0 ? featuredDeals : productsWithLocalImages.slice(0, 4));
     } catch (err) {
-      console.error("Error fetching deals, using local fallback:", err);
-      // If API fails completely, show first 4 items from static data
       setDealsData(staticItems.slice(0, 4));
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
-  useEffect(() => {
-    fetchDeals();
-  }, [API_BASE_URL]);
+  useEffect(() => { fetchDeals(); }, [API_BASE_URL]);
 
-  if (loading) {
-    return (
-      <div className="py-24 flex flex-col items-center justify-center">
-        <Loader2 className="w-8 h-8 text-emerald-500 animate-spin mb-2" />
-        <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Loading Deals...</p>
-      </div>
-    );
-  }
-
-  if (dealsData.length === 0) return null;
+  if (loading) return <div className="py-24 flex justify-center bg-white dark:bg-slate-950"><Loader2 className="w-6 h-6 animate-spin dark:text-white" /></div>;
 
   return (
-    <section className="py-12 lg:py-16 max-w-[1440px] mx-auto px-4 sm:px-8 xl:px-12">
-      {/* Header */}
-      <div className="flex items-center gap-4 mb-10">
-        <div className="w-1.5 h-8 bg-emerald-600 rounded-full" />
-        <h2 className="text-2xl lg:text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">
-          TODAY'S BEST <span className="text-emerald-600">DEALS</span>
-        </h2>
-      </div>
+    <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-300">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        <div className="flex flex-col items-center mb-20 text-center">
+          <span className="text-emerald-600 text-[10px] font-black uppercase tracking-[0.5em] mb-4">Limited Edition</span>
+          <h2 className="text-3xl lg:text-4xl font-light text-slate-900 dark:text-white uppercase tracking-tighter">
+            Weekly <span className="font-black italic text-emerald-600 dark:text-emerald-500">Exclusives</span>
+          </h2>
+          <div className="w-16 h-px bg-slate-200 dark:bg-slate-800 mt-8" />
+        </div>
 
-      {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
-        {dealsData.map((product) => (
-          <motion.div
-            key={product._id || product.id}
-            whileHover={{ y: -8 }}
-            onClick={() => navigate(`/product/${product._id || product.id}`)}
-            className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-100 dark:border-slate-800 p-5 shadow-sm hover:shadow-2xl transition-all group flex flex-col cursor-pointer"
-          >
-            {/* Sale Badge & Image Container */}
-            <div className="relative aspect-square mb-6 overflow-hidden rounded-[1.5rem] bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
-              <div className="absolute top-3 left-3 z-10 bg-red-500 text-white text-[9px] font-black px-3 py-1 rounded-md shadow-lg uppercase">
-                SALE!
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-20">
+          {dealsData.map((product, idx) => (
+            <motion.div key={product._id || product.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }}
+              onClick={() => navigate(`/product/${product._id || product.id}`)} className="group cursor-pointer flex flex-col items-center text-center">
+              <div className="relative w-full aspect-[4/5] mb-10 overflow-hidden bg-slate-50 dark:bg-slate-900 rounded-lg shadow-inner">
+                <div className="absolute top-4 left-4 z-10"><span className="bg-red-600 text-white text-[9px] font-black px-3 py-1.5 uppercase tracking-widest">Sale</span></div>
+                <img src={product.image} alt={product.name} className="w-full h-full object-contain p-10 transition-transform duration-1000 ease-out group-hover:scale-110" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <button className="w-full bg-slate-950 dark:bg-white dark:text-slate-950 text-white text-[10px] font-black uppercase py-4 tracking-widest shadow-2xl">Explore Details</button>
+                </div>
               </div>
-              <img
-                src={product.image} 
-                alt={product.name}
-                className="max-h-full w-full object-contain p-4 transition-transform duration-700 group-hover:scale-110"
-              />
-            </div>
-
-            {/* Product Info */}
-            <div className="flex-1 mb-6 min-w-0">
-              <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-1 truncate">
-                {product.brand}
-              </p>
-              <h3 className="font-extrabold text-slate-900 dark:text-white text-base leading-tight line-clamp-2 h-10">
-                {product.name}
-              </h3>
-              
-              <div className="flex items-center gap-3 mt-3">
-                <span className="text-lg font-black text-slate-900 dark:text-white">
-                  ₹{Number(product.price).toLocaleString()}
-                </span>
-                <span className="text-xs text-slate-400 line-through font-bold italic">
-                  ₹{(Number(product.price) * 1.3).toFixed(0)}
-                </span>
+              <div className="space-y-3 w-full">
+                <p className="text-slate-400 dark:text-slate-500 text-[9px] font-bold uppercase tracking-[0.2em]">{product.brand}</p>
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm uppercase tracking-tight group-hover:text-emerald-600 dark:group-hover:text-emerald-500 transition-colors">{product.name}</h3>
+                <div className="flex items-center justify-center gap-4 pt-2">
+                  <span className="text-base font-black text-slate-950 dark:text-emerald-400">₹{Number(product.price).toLocaleString()}</span>
+                  <span className="text-xs text-slate-300 dark:text-slate-700 line-through font-light italic">₹{(Number(product.price) * 1.3).toFixed(0)}</span>
+                </div>
               </div>
-            </div>
-
-            {/* View Product Button */}
-            <button
-              className="w-full flex items-center justify-center gap-2 bg-slate-950 dark:bg-white text-white dark:text-slate-950 font-black py-4 rounded-xl text-[11px] uppercase tracking-widest hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white transition-all shadow-lg group/btn"
-            >
-              <Eye size={16} />
-              View Product
-              <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-            </button>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

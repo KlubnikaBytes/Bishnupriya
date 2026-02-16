@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
-// 1. IMPORT STATIC DATA (Contains the working images)
+// 1. IMPORT STATIC DATA
 import { categories, itemsData as staticItems } from '../data/itemsData'; 
 
 const Store = () => {
@@ -39,39 +39,42 @@ const Store = () => {
 
   const [addedItemId, setAddedItemId] = useState(null);
 
-  // --- 2. FETCH DATA & MERGE ---
+  // --- 2. FETCH DATA & MERGE LOGIC ---
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
         // A. Fetch Live Data from Backend
-        const res = await fetch('${API_BASE_URL}/api/admin/inventory');
+        const res = await fetch(`${API_BASE_URL}/api/admin/inventory`);
         if (!res.ok) throw new Error("API Error");
         const dbData = await res.json();
         
-        // B. Merge DB Data with Local Images
-        // We match items by NAME since IDs might be different in MongoDB
-        const mergedData = dbData
+        // B. Process items already in the Database
+        const mergedFromDB = dbData
           .filter(item => !item.isDeleted)
           .map(dbItem => {
-            // Find the matching item in your local file
             const localMatch = staticItems.find(
               local => local.name.trim().toLowerCase() === dbItem.name.trim().toLowerCase()
             );
 
             return {
               ...dbItem,
-              // PRIORITY: Use Local Image if available (fixes broken icons), else use DB image
+              // Use local image asset if names match to ensure high quality/working paths
               image: localMatch ? localMatch.image : dbItem.image,
-              // Ensure we have a valid ID for routing
               id: dbItem._id || localMatch?.id
             };
           });
 
-        setAllItems(mergedData);
+        // C. Find items in the local file that DON'T exist in the database yet
+        const localOnlyItems = staticItems.filter(local => 
+          !dbData.some(dbItem => dbItem.name.trim().toLowerCase() === local.name.trim().toLowerCase())
+        );
+
+        // D. Combine both (DB-synced items + Local-only items)
+        setAllItems([...mergedFromDB, ...localOnlyItems]);
+
       } catch (err) {
         console.error("Using Local Fallback:", err);
-        // If API fails completely, show local data as backup
         setAllItems(staticItems);
       } finally {
         setLoading(false);
@@ -90,9 +93,9 @@ const Store = () => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [API_BASE_URL]);
 
-  // UPDATE MAX PRICE
+  // UPDATE MAX PRICE DYNAMICALLY
   useEffect(() => {
     if (allItems.length > 0) {
       const highPrice = Math.max(...allItems.map(item => Number(item.price)));

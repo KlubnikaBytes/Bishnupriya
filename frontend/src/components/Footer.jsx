@@ -1,76 +1,94 @@
 import React from 'react';
-import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone, MessageCircle } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone, MessageCircle, ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Footer = () => {
   const navigate = useNavigate();
 
-  // Helper for consistent link styling
-  const linkStyle = "hover:text-white cursor-pointer transition hover:translate-x-1 duration-200";
+  // Harold-style minimalist link styling
+  const linkStyle = "text-slate-400 hover:text-emerald-500 cursor-pointer transition-all duration-300 transform hover:translate-x-1";
 
   return (
-    <footer className="bg-black text-white pt-16 pb-4 border-t border-gray-900">
-      <div className="max-w-7xl mx-auto px-6">
+    <footer className="bg-slate-950 text-white pt-24 pb-12 border-t border-slate-900 transition-colors duration-500">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-16">
         
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        {/* Main Footer Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
           
-          {/* Brand Info */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center font-bold text-xl text-white">BE</div>
-              <h2 className="text-xl font-bold tracking-tight">Bishnupriya Electrical</h2>
+          {/* Brand Philosophy */}
+          <div className="space-y-8">
+            <div className="flex flex-col gap-2">
+              <h2 className="text-2xl font-black text-white uppercase tracking-tighter italic">
+                Bishnupriya <span className="text-emerald-500 not-italic">Electrical</span>
+              </h2>
+              <div className="w-12 h-1 bg-emerald-600" />
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Delivering Dreams to You. Your one-stop shop for all electrical components, from industrial gear to luxury home lighting.
+            <p className="text-slate-400 text-sm leading-loose font-light max-w-xs">
+              Curating the world's finest electrical components. From industrial precision to the art of luxury lighting, we define the standards of excellence.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Navigation Directory */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Quick Links</h3>
-            <ul className="space-y-3 text-gray-400 text-sm">
+            <h3 className="text-[10px] font-black text-white uppercase tracking-[0.5em] mb-10">Directory</h3>
+            <ul className="space-y-4 text-xs uppercase tracking-widest font-bold">
               <li onClick={() => navigate('/')} className={linkStyle}>Home</li>
-              <li onClick={() => navigate('/store')} className={linkStyle}>Store</li>
-              <li onClick={() => navigate('/contact')} className="hover:text-green-500 cursor-pointer transition hover:translate-x-1 duration-200 font-medium">Contact Us</li>
-              <li onClick={() => navigate('/my-orders')} className={linkStyle}>Check Order</li>
+              <li onClick={() => navigate('/store')} className={linkStyle}>Collection</li>
+              <li onClick={() => navigate('/categories')} className={linkStyle}>Categories</li>
+              <li onClick={() => navigate('/contact')} className="text-emerald-500 flex items-center gap-1 cursor-pointer hover:underline underline-offset-8">
+                Request Consultation <ArrowUpRight size={12} />
+              </li>
             </ul>
           </div>
 
-          {/* Company Policy - ESSENTIAL FOR RAZORPAY */}
+          {/* Professional Standards */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Company</h3>
-            <ul className="space-y-3 text-gray-400 text-sm">
-              <li onClick={() => navigate('/about')} className={linkStyle}>About Us</li>
-              <li onClick={() => navigate('/testimonials')} className={linkStyle}>Testimonials</li>
-              <li onClick={() => navigate('/privacy-policy')} className={linkStyle}>Privacy Policy</li>
-              <li onClick={() => navigate('/return-policy')} className={linkStyle}>Return Policy</li>
-              <li onClick={() => navigate('/terms')} className={linkStyle}>Terms & Conditions</li>
+            <h3 className="text-[10px] font-black text-white uppercase tracking-[0.5em] mb-10">Policy & Terms</h3>
+            <ul className="space-y-4 text-xs uppercase tracking-widest font-bold">
+              <li onClick={() => navigate('/about')} className={linkStyle}>Our Legacy</li>
+              <li onClick={() => navigate('/privacy-policy')} className={linkStyle}>Privacy Standards</li>
+              <li onClick={() => navigate('/return-policy')} className={linkStyle}>Exchange Policy</li>
+              <li onClick={() => navigate('/terms')} className={linkStyle}>Terms of Service</li>
             </ul>
           </div>
 
-          {/* Socials & Contact */}
+          {/* Connection Hub */}
           <div>
-            <h3 className="text-lg font-bold mb-6">Socials</h3>
-            <div className="flex flex-wrap gap-4 mb-6">
-              <Facebook size={20} className="text-gray-400 hover:text-blue-600 cursor-pointer transition-colors" />
-              <Instagram size={20} className="text-gray-400 hover:text-pink-500 cursor-pointer transition-colors" />
-              <Linkedin size={20} className="text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-              <Twitter size={20} className="text-gray-400 hover:text-blue-300 cursor-pointer transition-colors" />
-              <Mail size={20} className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors" />
+            <h3 className="text-[10px] font-black text-white uppercase tracking-[0.5em] mb-10">Connect</h3>
+            <div className="flex flex-wrap gap-6 mb-10">
+              <Facebook size={18} className="text-slate-500 hover:text-emerald-500 cursor-pointer transition-colors" strokeWidth={1.5} />
+              <Instagram size={18} className="text-slate-500 hover:text-emerald-500 cursor-pointer transition-colors" strokeWidth={1.5} />
+              <Linkedin size={18} className="text-slate-500 hover:text-emerald-500 cursor-pointer transition-colors" strokeWidth={1.5} />
+              <Twitter size={18} className="text-slate-500 hover:text-emerald-500 cursor-pointer transition-colors" strokeWidth={1.5} />
             </div>
-            <div className="flex gap-4">
-              <Phone size={20} className="text-gray-400 hover:text-green-500 cursor-pointer transition-colors" />
-              <MessageCircle size={20} className="text-gray-400 hover:text-green-400 cursor-pointer transition-colors" />
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 text-slate-400 text-xs font-light">
+                <Phone size={14} className="text-emerald-500" />
+                <span className="tracking-widest">+91 79801 96037</span>
+              </div>
+              <div className="flex items-center gap-3 text-slate-400 text-xs font-light">
+                <Mail size={14} className="text-emerald-500" />
+                <span className="tracking-widest">sayanghosh8282@gmail.com</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-[11px] text-gray-500 uppercase tracking-widest">
-          <p>Copyright © 2026 Bishnupriya Electrical. All rights reserved.</p>
-          <div className="flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0">
-             <p className="font-bold text-gray-400">GSTIN - 19AJNPG1966F1ZZ</p>
+        {/* Bottom Legal Bar */}
+        <div className="pt-12 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <p className="text-[9px] text-slate-500 uppercase tracking-[0.4em] font-medium text-center md:text-left">
+              © 2026 Bishnupriya Electrical. All Rights Reserved.
+            </p>
+            <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">
+              GSTIN: 19AJNPG1966F1ZZ
+            </p>
+          </div>
+
+          <div className="flex items-center gap-8 opacity-20 grayscale">
+            <span className="text-[8px] font-black uppercase tracking-[0.5em] text-white">Industrial Grade</span>
+            <span className="text-[8px] font-black uppercase tracking-[0.5em] text-white">Premium QC</span>
+            <span className="text-[8px] font-black uppercase tracking-[0.5em] text-white">Pan-India Reach</span>
           </div>
         </div>
       </div>

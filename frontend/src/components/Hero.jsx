@@ -3,34 +3,36 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-// Selected "Best Deal" items from your real-time inventory
 const slides = [
   {
     id: 1,
-    productId: "CS16A1MSW_WE", // Wiser Smart Switch
-    brand: "Schneider Electric",
-    title: "Wiser Smart Switch",
-    subtitle: "Transform your home with WiFi-enabled control. Compatible with Alexa & Google Home.",
-    image: "https://images.unsplash.com/photo-1558002038-1091a166111c?q=80&w=2070",
-    color: "bg-emerald-600"
+    productId: "SCFZ101948", // Fabia Code [cite: 53]
+    brand: "Goldmedal Luxury",
+    title: "Fabia Series",
+    subtitle: "A symphony of elegance and performance. 3-colour LED integration with near-silent operation.",
+    image: "https://images.unsplash.com/photo-1540518614846-7eded433c457?q=80&w=2070", 
+    color: "text-amber-500",
+    btnColor: "bg-white text-black hover:bg-black hover:text-white"
   },
   {
     id: 2,
-    productId: "SCFP301050", // Hush-Flo BLDC Fan
-    brand: "Goldmedal",
-    title: "Hush-Flo BLDC Fan",
-    subtitle: "Experience silence. Premium energy-saving technology with remote control.",
-    image: "https://images.unsplash.com/photo-1615873968403-89e068629265?q=80&w=2070",
-    color: "bg-amber-500"
+    productId: "MUR-TEJAS-FAN",
+    brand: "Murugappa Group",
+    title: "Tejas Performance",
+    subtitle: "Engineered for the heavy-duty demands of the modern Indian home. Power meets durability.",
+    image: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=2070",
+    color: "text-emerald-500",
+    btnColor: "bg-black text-white hover:bg-white hover:text-black"
   },
   {
     id: 3,
-    productId: "EZ9F76332", // Easy9 MCB 3-Pole
-    brand: "Schneider Electric",
-    title: "Easy9 MCB 3-Pole",
-    subtitle: "Industrial grade protection. 32A capacity with advanced breaking technology.",
-    image: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070",
-    color: "bg-blue-600"
+    productId: "GL9C0307109X", // Orzo Downlight
+    brand: "Architectural Lighting",
+    title: "Orzo Precision",
+    subtitle: "Experience the art of illumination. High-lumen PDC Aluminium body for sophisticated interiors.",
+    image: "https://media.istockphoto.com/id/1177589023/photo/light-bulb-hanging-by-the-ceiling-in-a-restaurant.jpg?s=612x612&w=0&k=20&c=q42ID3IKtlhQbY8UquTIkIwqKeJB42kLgjr7KW83ZxE=", 
+    color: "text-blue-500",
+    btnColor: "bg-white text-black hover:bg-black hover:text-white"
   }
 ];
 
@@ -38,115 +40,115 @@ const Hero = () => {
   const [current, setCurrent] = useState(0);
   const navigate = useNavigate();
 
-  // Auto-slide every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 5000);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
   const nextSlide = () => setCurrent(current === slides.length - 1 ? 0 : current + 1);
   const prevSlide = () => setCurrent(current === 0 ? slides.length - 1 : current - 1);
 
-  const handleViewProduct = () => {
-    // Navigates to the specific product details page
-    navigate(`/product/${slides[current].productId}`);
+  // Conditional navigation logic
+  const handleShopNow = () => {
+    if (slides[current].id === 1) {
+      // Navigate to store for Goldmedal fans
+      // If your Store component supports state or query params, you can pass them here
+      navigate('/store', { state: { filterBrand: 'Goldmedal', filterCategory: 'Fans' } });
+    } else {
+      // Standard product view
+      navigate(`/product/${slides[current].productId}`);
+    }
   };
 
   return (
-    <div className="relative h-[600px] w-full overflow-hidden bg-slate-950">
+    <div className="relative h-screen min-h-[700px] w-full overflow-hidden bg-white">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1.2, ease: "circOut" }}
           className="absolute inset-0"
         >
-          {/* Background Image with Overlay */}
-          <div 
+          <motion.div 
+            initial={{ scale: 1.15 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 10, ease: "linear" }}
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slides[current].image})` }}
           >
-            {/* Dark gradient for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent" />
-          </div>
+            <div className="absolute inset-0 bg-black/40 backdrop-brightness-95" />
+          </motion.div>
 
-          {/* Content Container */}
-          <div className="relative h-full max-w-7xl mx-auto px-6 lg:px-12 flex flex-col justify-center items-start text-white">
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="flex items-center gap-3 mb-4"
-            >
-              <span className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${slides[current].color}`}>
-                Best Deal
-              </span>
-              <span className="text-sm font-bold text-slate-300 uppercase tracking-widest">
+          <div className="relative h-full flex items-center justify-center text-center px-6">
+            <div className="max-w-4xl">
+              <motion.span
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className={`inline-block mb-4 text-xs font-black uppercase tracking-[0.4em] ${slides[current].color}`}
+              >
                 {slides[current].brand}
-              </span>
-            </motion.div>
-            
-            <motion.h1
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="text-5xl md:text-7xl font-black mb-6 leading-tight max-w-2xl text-white"
-            >
-              {slides[current].title}
-            </motion.h1>
-            
-            <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="text-lg md:text-xl text-slate-300 mb-10 max-w-lg font-medium"
-            >
-              {slides[current].subtitle}
-            </motion.p>
-            
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.8 }}
-            >
-            </motion.div>
+              </motion.span>
+              
+              <motion.h1
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                className="text-6xl md:text-8xl font-light mb-8 text-white tracking-tighter leading-none"
+              >
+                {slides[current].title}
+              </motion.h1>
+              
+              <motion.p
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="text-lg md:text-xl text-slate-100 mb-12 max-w-2xl mx-auto font-light leading-relaxed tracking-wide"
+              >
+                {slides[current].subtitle}
+              </motion.p>
+              
+              <motion.div
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.8 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
+                <button 
+                  onClick={handleShopNow}
+                  className={`group px-10 py-5 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-500 shadow-2xl flex items-center gap-2 ${slides[current].btnColor}`}
+                >
+                  Shop Now <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
+                </button>
+                <button 
+                  onClick={() => navigate('/store')}
+                  className="px-10 py-5 rounded-full text-xs font-black uppercase tracking-widest text-white border border-white/40 hover:bg-white/10 backdrop-blur-sm transition-all duration-500"
+                >
+                  Explore Catalog
+                </button>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation Arrows */}
-      <div className="absolute bottom-8 right-8 flex gap-4 z-10">
-        <button 
-          onClick={prevSlide}
-          className="p-4 rounded-full bg-white/10 hover:bg-emerald-600 text-white backdrop-blur-md border border-white/10 transition-all active:scale-95"
-          aria-label="Previous Slide"
-        >
-          <ChevronLeft size={24} />
+      <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none px-4">
+        <button onClick={prevSlide} className="p-4 text-white/50 hover:text-white pointer-events-auto transition-colors">
+          <ChevronLeft size={48} strokeWidth={1} />
         </button>
-        <button 
-          onClick={nextSlide}
-          className="p-4 rounded-full bg-white/10 hover:bg-emerald-600 text-white backdrop-blur-md border border-white/10 transition-all active:scale-95"
-          aria-label="Next Slide"
-        >
-          <ChevronRight size={24} />
+        <button onClick={nextSlide} className="p-4 text-white/50 hover:text-white pointer-events-auto transition-colors">
+          <ChevronRight size={48} strokeWidth={1} />
         </button>
       </div>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-8 lg:left-12 flex gap-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrent(index)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              current === index ? 'w-12 bg-emerald-500' : 'w-4 bg-white/20 hover:bg-white/40'
-            }`}
-          />
-        ))}
+      <div className="absolute bottom-12 right-12 flex items-end gap-2 text-white">
+        <span className="text-3xl font-light">0{current + 1}</span>
+        <div className="h-px w-12 bg-white/40 mb-3" />
+        <span className="text-sm font-light text-white/40 mb-1">0{slides.length}</span>
       </div>
     </div>
   );

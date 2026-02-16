@@ -72,7 +72,7 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300 antialiased">
+        <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300 antialiased pt-[80px] lg:pt-[140px] min-h-screen">
           <Routes>
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/login" element={<Auth />} />

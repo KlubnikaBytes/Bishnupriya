@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, ArrowRight, Loader2, Star } from 'lucide-react';
+import { ArrowRight, Loader2, Star, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-// 1. IMPORT STATIC DATA (Contains the working local images)
+// 1. IMPORT STATIC DATA
 import { itemsData as staticItems } from '../data/itemsData';
 
 const Featured = () => {
@@ -11,55 +11,45 @@ const Featured = () => {
   const [featuredData, setFeaturedData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // --- ENVIRONMENT VARIABLE ---
   const API_BASE_URL = import.meta.env.VITE_API_URL;
 
   const fetchFeatured = async () => {
     try {
       setLoading(true);
-      // A. Fetch Live Data from Backend
       const res = await fetch(`${API_BASE_URL}/api/admin/inventory`);
       const data = await res.json();
-      
       const activeProducts = data.filter(item => !item.isDeleted);
 
-      // B. IMAGE REPAIR & MERGE LOGIC
-      // We map through API data and replace images with local ones if the names match
       const productsWithLocalImages = activeProducts.map(dbItem => {
         const localMatch = staticItems.find(
           s => s.name.trim().toLowerCase() === dbItem.name.trim().toLowerCase()
         );
         return {
           ...dbItem,
-          // PRIORITY: Use Local Image from assets if available, else fallback to DB
           image: localMatch ? localMatch.image : dbItem.image
         };
       });
 
-      // C. SELECTION STRATEGY
-      // Target DIFFERENT products than the ones usually in Deals
+      // Selection of flagship "hero" products for the featured section
       const targetIds = [
-        "GL91285",    // Zolo Dual Color LED Panel
-        "EZ9R35440",  // Schneider Easy9 RCCB 4-Pole
-        "SCFZ101948", // Goldmedal Fabia Fan
-        "IN8401"      // Schneider Zencelo Switch
+        "GL91285",     // Zolo LED
+        "MUR-TEJAS-TFT18036", // Murugappa Fan
+        "SCFZ101948",  // Goldmedal Fan
+        "GL9C0307136X" // Orzo Industrial
       ];
 
       let items = targetIds.map(id => 
         productsWithLocalImages.find(p => p.id === id || p._id === id)
       ).filter(Boolean);
 
-      // FALLBACK: If specific IDs aren't found, take products 5-8 
-      // (to ensure they are different from the first 4 used in Deals)
       if (items.length === 0) {
         items = productsWithLocalImages.slice(4, 8);
       }
 
       setFeaturedData(items);
     } catch (err) {
-      console.error("Error fetching featured products, using local fallback:", err);
-      // FALLBACK to static items 5-8 if API fails
-      setFeaturedData(staticItems.slice(4, 8));
+      console.error("Using local fallback:", err);
+      setFeaturedData(staticItems.slice(10, 14));
     } finally {
       setLoading(false);
     }
@@ -71,9 +61,9 @@ const Featured = () => {
 
   if (loading) {
     return (
-      <div className="py-24 flex flex-col items-center justify-center bg-gray-50 dark:bg-slate-950">
-        <Loader2 className="w-8 h-8 text-emerald-500 animate-spin mb-2" />
-        <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Curating Featured Collection...</p>
+      <div className="py-24 flex flex-col items-center justify-center bg-white dark:bg-slate-950">
+        <Loader2 className="w-6 h-6 text-slate-900 dark:text-white animate-spin mb-4" />
+        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Refining Collection</p>
       </div>
     );
   }
@@ -81,69 +71,97 @@ const Featured = () => {
   if (featuredData.length === 0) return null;
 
   return (
-    <section className="py-16 lg:py-24 bg-gray-50 dark:bg-slate-900/30 transition-colors">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 xl:px-12">
+    <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-500">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-16">
         
-        {/* Section Header */}
-        <div className="flex flex-col items-center mb-16 text-center">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-1 bg-emerald-600 rounded-full" />
-            <span className="text-emerald-600 font-black uppercase tracking-[0.3em] text-xs">Premium Selection</span>
-            <div className="w-8 h-1 bg-emerald-600 rounded-full" />
+        {/* Editorial Header */}
+        <div className="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-6">
+          <div className="space-y-2">
+            <motion.span 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              className="text-emerald-600 dark:text-emerald-500 text-[10px] font-black uppercase tracking-[0.6em]"
+            >
+              Masterpieces
+            </motion.span>
+            <motion.h2 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="text-4xl md:text-5xl font-light text-slate-900 dark:text-white uppercase tracking-tighter"
+            >
+              Curated <span className="font-black italic">Excellence</span>
+            </motion.h2>
           </div>
-          <h2 className="text-3xl lg:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tighter italic">
-            Featured <span className="text-emerald-600 not-italic">Products</span>
-          </h2>
+          <motion.button 
+            onClick={() => navigate('/store')}
+            className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all"
+          >
+            View Entire Range <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+          </motion.button>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
-          {featuredData.map((product) => (
+        {/* Editorial Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-20">
+          {featuredData.map((product, idx) => (
             <motion.div
               key={product._id || product.id}
-              whileHover={{ y: -8 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.8 }}
               onClick={() => navigate(`/product/${product._id || product.id}`)}
-              className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-6 shadow-sm hover:shadow-2xl transition-all group flex flex-col cursor-pointer"
+              className="group cursor-pointer flex flex-col"
             >
-              {/* Image Container */}
-              <div className="relative aspect-square mb-6 overflow-hidden rounded-[2rem] bg-slate-50 dark:bg-slate-800 flex items-center justify-center p-6">
+              {/* Image Container with Editorial Shadow and Background */}
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#fbfbfb] dark:bg-slate-900 rounded-sm mb-8">
+                <div className="absolute top-6 left-6 z-10">
+                  <div className="flex items-center gap-1.5 px-3 py-1 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full border border-slate-100 dark:border-slate-700">
+                    <Star size={8} className="fill-emerald-500 text-emerald-500" />
+                    <span className="text-[8px] font-black dark:text-white tracking-widest">{product.rating || "4.9"}</span>
+                  </div>
+                </div>
+
                 <img
                   src={product.image} 
                   alt={product.name}
-                  className="max-h-full w-full object-contain transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-full object-contain p-12 transition-transform duration-[1.5s] ease-out group-hover:scale-110"
                 />
-                <div className="absolute bottom-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md px-3 py-1 rounded-full border border-slate-100 dark:border-slate-700 flex items-center gap-1">
-                   <Star size={10} className="fill-yellow-400 text-yellow-400" />
-                   <span className="text-[10px] font-black dark:text-white">{product.rating || "4.8"}</span>
+
+                {/* Harold-style Reveal Button */}
+                <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <button className="w-full bg-slate-950 dark:bg-white text-white dark:text-slate-950 text-[10px] font-black uppercase py-5 tracking-[0.2em] shadow-2xl flex items-center justify-center gap-2">
+                    <Plus size={14} /> Product Details
+                  </button>
                 </div>
               </div>
 
-              {/* Product Info */}
-              <div className="flex-1 mb-6">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
-                  {product.brand}
-                </p>
-                <h3 className="font-extrabold text-slate-900 dark:text-white text-base lg:text-lg leading-tight line-clamp-2 h-12">
-                  {product.name}
-                </h3>
+              {/* Minimal Product Metadata */}
+              <div className="space-y-2 px-1">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-slate-400 dark:text-slate-500 text-[9px] font-bold uppercase tracking-[0.2em] mb-1">
+                      {product.brand}
+                    </p>
+                    <h3 className="text-slate-900 dark:text-white font-bold text-sm uppercase tracking-tight leading-tight group-hover:text-emerald-600 dark:group-hover:text-emerald-500 transition-colors">
+                      {product.name}
+                    </h3>
+                  </div>
+                </div>
                 
-                <div className="mt-4">
-                  <span className="text-2xl font-black text-slate-950 dark:text-white tracking-tighter">
+                <div className="pt-2">
+                  <span className="text-base font-black text-slate-900 dark:text-white italic tracking-tighter">
                     ₹{Number(product.price).toLocaleString()}
                   </span>
                 </div>
               </div>
-
-              {/* View Product Button */}
-              <button
-                className="w-full flex items-center justify-center gap-2 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-black py-4 rounded-2xl text-[11px] uppercase tracking-widest hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 transition-all group/btn border border-slate-100 dark:border-slate-700"
-              >
-                <Eye size={16} />
-                View Details
-                <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
-              </button>
             </motion.div>
           ))}
+        </div>
+
+        {/* Decorative Divider */}
+        <div className="mt-32 flex justify-center">
+          <div className="h-px w-24 bg-slate-100 dark:bg-slate-900" />
         </div>
       </div>
     </section>

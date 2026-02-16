@@ -24,62 +24,89 @@ const testimonials = [
     name: "Rajesh Kumar",
     role: "Project Manager",
     text: "For industrial switchgear and heavy-duty cables, this is our go-to shop. Genuine products and very competitive pricing in the market.",
-    rating: 4,
+    rating: 5,
     avatar: "https://i.pravatar.cc/150?u=rajesh"
   }
 ];
 
 const Testimonials = () => {
   return (
-    <section className="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <motion.div
+    <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-500 overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-12">
+        
+        {/* Harold-Style Header */}
+        <div className="flex flex-col items-center mb-20 text-center">
+          <motion.p 
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            className="text-emerald-600 dark:text-emerald-500 text-[10px] font-black uppercase tracking-[0.5em] mb-4"
           >
-            <h2 className="text-4xl font-bold dark:text-white mb-4">What Our Clients Say</h2>
-            <div className="w-24 h-1 bg-green-500 mx-auto rounded-full"></div>
-          </motion.div>
+            Voices of Trust
+          </motion.p>
+          <motion.h2 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl lg:text-4xl font-light text-slate-900 dark:text-white uppercase tracking-tighter"
+          >
+            Client <span className="font-black italic text-emerald-600 dark:text-emerald-500">Perspectives</span>
+          </motion.h2>
+          <div className="w-16 h-px bg-slate-200 dark:bg-slate-800 mt-8" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Testimonials Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
           {testimonials.map((item, index) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="relative bg-gray-50 dark:bg-slate-800 p-8 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all group"
+              transition={{ delay: index * 0.1 }}
+              className="relative flex flex-col items-center text-center group"
             >
-              <Quote className="absolute top-6 right-8 text-green-500/20 group-hover:text-green-500/40 transition-colors" size={40} />
-              
+              {/* Elegant Quote Icon */}
+              <div className="mb-8">
+                <Quote 
+                  size={32} 
+                  className="text-slate-200 dark:text-slate-800 group-hover:text-emerald-500/20 transition-colors duration-500" 
+                  strokeWidth={1} 
+                />
+              </div>
+
+              {/* Rating - Minimalist */}
               <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, i) => (
-                  <Star 
-                    key={i} 
-                    size={16} 
-                    className={i < item.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"} 
-                  />
+                {[...Array(item.rating)].map((_, i) => (
+                  <Star key={i} size={12} className="text-emerald-600 dark:text-emerald-500 fill-current" />
                 ))}
               </div>
 
-              <p className="text-gray-600 dark:text-gray-300 italic mb-8 leading-relaxed">
-                "{item.text}"
-              </p>
+              {/* Content */}
+              <div className="relative mb-10">
+                <p className="text-slate-600 dark:text-slate-400 font-light leading-relaxed italic text-base lg:text-lg">
+                  "{item.text}"
+                </p>
+              </div>
 
-              <div className="flex items-center gap-4">
-                <img 
-                  src={item.avatar} 
-                  alt={item.name} 
-                  className="w-12 h-12 rounded-full border-2 border-white dark:border-slate-700 shadow-sm"
-                />
-                <div>
-                  <h4 className="font-bold dark:text-white leading-tight">{item.name}</h4>
-                  <p className="text-xs text-green-600 dark:text-green-400 font-semibold">{item.role}</p>
+              {/* Author Info */}
+              <div className="mt-auto flex flex-col items-center">
+                <div className="relative mb-4">
+                  <img 
+                    src={item.avatar} 
+                    alt={item.name} 
+                    className="w-14 h-14 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 border border-slate-100 dark:border-slate-800"
+                  />
+                  <div className="absolute inset-0 rounded-full border border-emerald-500/0 group-hover:border-emerald-500/50 scale-125 transition-all duration-700" />
                 </div>
+                
+                <h4 className="text-sm font-black text-slate-900 dark:text-white uppercase tracking-widest mb-1">
+                  {item.name}
+                </h4>
+                <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em]">
+                  {item.role}
+                </p>
               </div>
             </motion.div>
           ))}
@@ -89,4 +116,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials; // <--- The final critical export
+export default Testimonials;

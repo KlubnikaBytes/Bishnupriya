@@ -85,7 +85,7 @@ export const itemsData = [
     specifications: { "Connectivity": "WiFi", "Color": "RGB+CCT", "Music Sync": "Yes" } 
   },
   
-  // 4. Ignitos Modan Panel 10W (WEBP based on screenshot)
+  // 4. Ignitos Modan Panel 10W
   { 
     id: "PAN-IGNITOS-10W", 
     name: "Ignitos Modan Panel 10W", 
@@ -145,7 +145,7 @@ export const itemsData = [
     specifications: { "Series": "Lumor Anora", "Type": "Downlight" } 
   },
   
-  // 8. Altabright Batten 20W (WEBP based on screenshot)
+  // 8. Altabright Batten 20W
   { 
     id: "PAN-BATTEN-20W", 
     name: "Altabright Batten 20W", 
@@ -217,7 +217,7 @@ export const itemsData = [
     specifications: { "Range": "PratiKa", "Current": "32A", "IP Rating": "IP44" } 
   },
   
-  // 13. PratiKa Plug 16A (WEBP based on screenshot)
+  // 13. PratiKa Plug 16A
   { 
     id: "PKE16M423", 
     name: "PratiKa Plug 16A", 
@@ -637,7 +637,7 @@ export const itemsData = [
     specifications: { "Type": "Dual Color", "Driver": "Inbuilt", "Mode": "Switch Controlled" } 
   },
   
-  // 42. Todos Panel 3W (WEBP based on screenshot)
+  // 42. Todos Panel 3W
   { 
     id: "GL91240", 
     name: "Todos Panel 3W", 
@@ -652,7 +652,7 @@ export const itemsData = [
     specifications: { "Driver": "External", "Shape": "Round", "Series": "Todos" } 
   },
   
-  // 43. Todos Panel 10W (WEBP based on screenshot)
+  // 43. Todos Panel 10W
   { 
     id: "GL91242", 
     name: "Todos Panel 10W", 
@@ -667,7 +667,7 @@ export const itemsData = [
     specifications: { "Driver": "External", "Shape": "Round", "Series": "Todos" } 
   },
   
-  // 44. Todos Panel 20W (WEBP based on screenshot)
+  // 44. Todos Panel 20W
   { 
     id: "GL91244", 
     name: "Todos Panel 20W", 
@@ -712,7 +712,7 @@ export const itemsData = [
     specifications: { "Feature": "Adjustable Cutout", "Wattage": "24W" } 
   },
   
-  // 47. Apollo Downlight 10W (WEBP based on screenshot)
+  // 47. Apollo Downlight 10W
   { 
     id: "GL91318", 
     name: "Apollo Downlight 10W", 
@@ -727,7 +727,7 @@ export const itemsData = [
     specifications: { "Body": "PDC Aluminium", "Type": "Downlight", "Series": "Apollo" } 
   },
   
-  // 48. Ola Detachable Downlight 6W (WEBP based on screenshot)
+  // 48. Ola Detachable Downlight 6W
   { 
     id: "GL91348", 
     name: "Ola Detachable Downlight 6W", 
@@ -757,7 +757,7 @@ export const itemsData = [
     specifications: { "Series": "Wella", "Type": "Downlight" } 
   },
   
-  // 50. Glazz Downlight 5W (WEBP based on screenshot)
+  // 50. Glazz Downlight 5W
   { 
     id: "GL91363", 
     name: "Glazz Downlight 5W", 
@@ -787,7 +787,7 @@ export const itemsData = [
     specifications: { "Type": "COB Module", "Color": "Black", "Compatible With": "Gio Rings" } 
   },
   
-  // 52. Divine COB Spotlight 7W (WEBP based on screenshot)
+  // 52. Divine COB Spotlight 7W
   { 
     id: "GL9C0704107", 
     name: "Divine COB Spotlight 7W", 
@@ -832,7 +832,7 @@ export const itemsData = [
     specifications: { "Feature": "Tiltable", "Source": "COB", "Series": "G-Tilt" } 
   },
   
-  // 55. Easy9 MCB 3-Pole 32A (WEBP based on screenshot)
+  // 55. Easy9 MCB 3-Pole 32A
   { 
     id: "EZ9F76332", 
     name: "Easy9 MCB 3-Pole 32A", 
@@ -917,7 +917,7 @@ export const itemsData = [
     specifications: { "Base": "B22", "Type": "Bulb" } 
   },
   
-  // 61. Goldmedal Batten 8W (WEBP based on screenshot)
+  // 61. Goldmedal Batten 8W
   { 
     id: "GL9C2001608", 
     name: "Goldmedal Batten 8W", 
@@ -970,11 +970,11 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 440, 
     wattage: "8W", 
-    details: "High brightness 8W panel, ideal for corridors.", 
+    details: "High brightness 8W panel.", 
     image: getImg("Torro LED Panel 8W.jpg"), 
     rating: 4.6, 
     reviews: generateReviews(3), 
-    specifications: { "Dimensions": "120x30mm", "Shape": "Round", "Driver": "Inbuilt", "Warranty": "2 Years" } 
+    specifications: { "Dimensions": "120x30mm", "Shape": "Round", "Driver": "Inbuilt" } 
   },
   
   // 65. Torro LED Panel 12W
@@ -985,14 +985,14 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 680, 
     wattage: "12W", 
-    details: "Standard 12W ceiling panel with uniform light.", 
+    details: "Standard 12W ceiling panel.", 
     image: getImg("Torro LED Panel 12W.jpg"), 
     rating: 4.8, 
     reviews: generateReviews(8), 
-    specifications: { "Dimensions": "170x30mm", "Shape": "Round", "Driver": "Inbuilt", "Warranty": "2 Years" } 
+    specifications: { "Dimensions": "170x30mm", "Shape": "Round", "Driver": "Inbuilt" } 
   },
   
-  // 66. Torro LED Panel 15W (WEBP based on screenshot)
+  // 66. Torro LED Panel 15W
   { 
     id: "GL9C0203115", 
     name: "Torro LED Panel 15W", 
@@ -1000,14 +1000,14 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 700, 
     wattage: "15W", 
-    details: "15W powerful LED panel for general lighting.", 
+    details: "Powerful 15W LED panel.", 
     image: getImg("Torro LED Panel 15W.webp"), 
     rating: 4.7, 
     reviews: generateReviews(4), 
-    specifications: { "Dimensions": "170x30mm", "Shape": "Round", "Driver": "Inbuilt", "Warranty": "2 Years" } 
+    specifications: { "Dimensions": "170x30mm", "Shape": "Round", "Driver": "Inbuilt" } 
   },
   
-  // 67. Torro LED Panel 18W (WEBP based on screenshot)
+  // 67. Torro LED Panel 18W
   { 
     id: "GL9C0203118", 
     name: "Torro LED Panel 18W", 
@@ -1015,11 +1015,11 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 845, 
     wattage: "18W", 
-    details: "High-power 18W panel for living rooms.", 
+    details: "High-power 18W panel.", 
     image: getImg("Torro LED Panel 18W.webp"), 
     rating: 4.9, 
     reviews: generateReviews(10), 
-    specifications: { "Dimensions": "190x30mm", "Shape": "Round", "Driver": "Inbuilt", "Warranty": "2 Years" } 
+    specifications: { "Dimensions": "190x30mm", "Shape": "Round", "Driver": "Inbuilt" } 
   },
   
   // 68. Geolite Round Panel 3W
@@ -1030,14 +1030,14 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 310, 
     wattage: "3W", 
-    details: "Compact 3W round panel for accent lighting.", 
+    details: "Compact 3W round panel.", 
     image: getImg("Geolite Round Panel 3W.jpg"), 
     rating: 4.4, 
     reviews: generateReviews(2), 
     specifications: { "Shape": "Round", "Type": "Geolite", "Mounting": "Recessed" } 
   },
   
-  // 69. Geolite Round Panel 6W (WEBP based on screenshot)
+  // 69. Geolite Round Panel 6W
   { 
     id: "GL91257", 
     name: "Geolite Round Panel 6W", 
@@ -1060,7 +1060,7 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 990, 
     wattage: "15W", 
-    details: "Bright 15W round panel, energy efficient.", 
+    details: "Bright 15W round panel.", 
     image: getImg("Geolite Round Panel 15W.jpg"), 
     rating: 4.5, 
     reviews: generateReviews(6), 
@@ -1082,7 +1082,7 @@ export const itemsData = [
     specifications: { "Shape": "Square", "Type": "Geolite", "Mounting": "Recessed" } 
   },
   
-  // 72. Geolite Square Panel 12W (WEBP based on screenshot)
+  // 72. Geolite Square Panel 12W
   { 
     id: "GL9C0203212", 
     name: "Geolite Square Panel 12W", 
@@ -1090,7 +1090,7 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 680, 
     wattage: "12W", 
-    details: "12W Square panel, fits standard grid ceilings.", 
+    details: "12W Square panel.", 
     image: getImg("Geolite Square Panel 12W.webp"), 
     rating: 4.6, 
     reviews: generateReviews(7), 
@@ -1105,7 +1105,7 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 390, 
     wattage: "4W", 
-    details: "Premium panel with external driver for long life.", 
+    details: "Premium panel with external driver.", 
     image: getImg("Quoro Round Panel 4W.jpg"), 
     rating: 4.7, 
     reviews: generateReviews(4), 
@@ -1120,7 +1120,7 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 705, 
     wattage: "12W", 
-    details: "12W Round panel with external driver reliability.", 
+    details: "12W Round panel Reliability.", 
     image: getImg("Quoro Round Panel 12W.jpeg"), 
     rating: 4.8, 
     reviews: generateReviews(5), 
@@ -1150,14 +1150,14 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 430, 
     wattage: "6W", 
-    details: "Dual color slim panel (White + Warm White).", 
+    details: "Dual color white + warm white.", 
     image: getImg("Zolo Dual Color 3W+3W.jpg"), 
     rating: 4.9, 
     reviews: generateReviews(12), 
     specifications: { "Type": "Dual Color", "Driver": "Inbuilt", "Mode": "Switch Controlled" } 
   },
   
-  // 77. Torro LED Panel 4W (WEBP based on screenshot)
+  // 77. Torro LED Panel 4W
   { 
     id: "GL9C0203104", 
     name: "Torro LED Panel 4W", 
@@ -1165,10 +1165,1021 @@ export const itemsData = [
     brand: "Goldmedal", 
     price: 310, 
     wattage: "4W", 
-    details: "Slim LED panel with inbuilt driver technology.", 
+    details: "Slim LED panel.", 
     image: getImg("Torro LED Panel 4W.webp"), 
     rating: 4.5, 
     reviews: generateReviews(5), 
-    specifications: { "Dimensions": "86x30mm", "Shape": "Round", "Driver": "Inbuilt", "Warranty": "2 Years" } 
+    specifications: { "Dimensions": "86x30mm", "Shape": "Round", "Driver": "Inbuilt" } 
+  },
+
+  // --- 78-97: FANS FROM CATALOGUE ---
+  {
+    id: "CFZ100750",
+    name: "Hush-Air BLDC",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 4300,
+    wattage: "53W",
+    details: "Super decorative fan with innovative blade design.",
+    image: getImg("Hush-Flo BLDC.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(12),
+    specifications: { "Sweep": "1250mm", "Motor": "BLDC" }
+  },
+  {
+    id: "SCFZ101448",
+    name: "Daisy",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 4600,
+    wattage: "40W",
+    details: "Luxury fan with electroplated finish.",
+    image: getImg("Fabia Super Decorative.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(15),
+    specifications: { "Sweep": "1200mm", "Type": "Decorative" }
+  },
+  {
+    id: "SCFZ100148",
+    name: "Phantom",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 4800,
+    wattage: "40W",
+    details: "Classical-modern mix with LED under-light.",
+    image: getImg("Fabia Super Decorative.jpg"),
+    rating: 4.9,
+    reviews: generateReviews(8),
+    specifications: { "Sweep": "1200mm", "Remote": "Yes" }
+  },
+  {
+    id: "SCFZ101124",
+    name: "Thor",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2850,
+    wattage: "65W",
+    details: "Unique 4-blade compact design.",
+    image: getImg("Tavola Decorative.jpg"),
+    rating: 4.5,
+    reviews: generateReviews(6),
+    specifications: { "Sweep": "600mm", "Speed": "850 RPM" }
+  },
+  {
+    id: "SCFP300348",
+    name: "Flora",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3150,
+    wattage: "52W",
+    details: "Flower petal inspired aerodynamic blades.",
+    image: getImg("Mayra Classic.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(10),
+    specifications: { "Sweep": "1200mm", "Speed": "350 RPM" }
+  },
+  {
+    id: "SCFP301548",
+    name: "Hero Prime",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3350,
+    wattage: "53W",
+    details: "Anti-corrosive wider blades for better air thrust.",
+    image: getImg("Airavat Dlx.jpg"),
+    rating: 4.4,
+    reviews: generateReviews(20),
+    specifications: { "Sweep": "1200mm", "Speed": "380 RPM" }
+  },
+  {
+    id: "SCFP300548",
+    name: "Insignia",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3500,
+    wattage: "53W",
+    details: "Aerodynamically superior quiet fan.",
+    image: getImg("Tavola Decorative.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(5),
+    specifications: { "Sweep": "1200mm", "Air Delivery": "220 CMM" }
+  },
+  {
+    id: "SCFP501448",
+    name: "Air Crest",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2950,
+    wattage: "52W",
+    details: "Wide blades with high-grade copper motor.",
+    image: getImg("Airavat Dlx.jpg"),
+    rating: 4.3,
+    reviews: generateReviews(14),
+    specifications: { "Sweep": "1200mm", "Speed": "350 RPM" }
+  },
+  {
+    id: "SCFS502048",
+    name: "Vellfire",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2600,
+    wattage: "53W",
+    details: "Elegant standard fan with a 16-pole motor.",
+    image: getImg("Airavat Standard.jpg"),
+    rating: 4.2,
+    reviews: generateReviews(9),
+    specifications: { "Sweep": "1200mm", "Type": "Standard" }
+  },
+  {
+    id: "LFP801000",
+    name: "Oxyrich",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 11500,
+    wattage: "48W",
+    details: "Bladeless air purifying lifestyle fan.",
+    image: getImg("Hush-Flo BLDC.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(4),
+    specifications: { "Type": "Bladeless", "Sensor": "PM2.5" }
+  },
+  {
+    id: "PFP300216",
+    name: "Vista 360",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3750,
+    wattage: "53W",
+    details: "Pedestal fan with 360-degree oscillation.",
+    image: getImg("Speedo-X Pedestal.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(10),
+    specifications: { "Sweep": "400mm", "Oscillation": "360 Deg" }
+  },
+  {
+    id: "PFP300716",
+    name: "Grace",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3950,
+    wattage: "56W",
+    details: "Pedestal fan with temperature sensor display.",
+    image: getImg("Speedo-X Pedestal.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(7),
+    specifications: { "Sweep": "400mm", "Speed Settings": "12" }
+  },
+  {
+    id: "LFF800118",
+    name: "Tricool",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 4200,
+    wattage: "80W",
+    details: "Multipurpose 3-in-1 fan.",
+    image: getImg("Speedo-X Pedestal.jpg"),
+    rating: 4.5,
+    reviews: generateReviews(18),
+    specifications: { "Type": "Pedestal/Wall/Table" }
+  },
+  {
+    id: "PFP500118",
+    name: "Air Fiesta",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 4400,
+    wattage: "90W",
+    details: "Lifestyle fan with air freshener slot.",
+    image: getImg("Speedo-X Pedestal.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(12),
+    specifications: { "Feature": "Air Freshener Slot" }
+  },
+  {
+    id: "WFP200416",
+    name: "Fusion DG",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3100,
+    wattage: "68W",
+    details: "Wall fan with touch panel and remote.",
+    image: getImg("Speedo-X Pedestal.jpg"),
+    rating: 4.4,
+    reviews: generateReviews(15),
+    specifications: { "Type": "Wall", "Remote": "Yes" }
+  },
+  {
+    id: "WFP200716",
+    name: "Adora",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2750,
+    wattage: "55W",
+    details: "Portable wall fan with flexible vertical adjustment.",
+    image: getImg("Speedo-X Pedestal.jpg"),
+    rating: 4.3,
+    reviews: generateReviews(6),
+    specifications: { "Sweep": "400mm", "Blades": "5-Leaf" }
+  },
+  {
+    id: "PCS650909",
+    name: "Tristar",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2200,
+    wattage: "45W",
+    details: "Compact mini personal fan.",
+    image: getImg("Environ BLDC Exhaust.jpg"),
+    rating: 4.5,
+    reviews: generateReviews(30),
+    specifications: { "Sweep": "225mm", "Type": "Personal" }
+  },
+  {
+    id: "PCS650212",
+    name: "Astor",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2450,
+    wattage: "75W",
+    details: "Sturdy cabin fan with protective grill.",
+    image: getImg("Environ BLDC Exhaust.jpg"),
+    rating: 4.4,
+    reviews: generateReviews(8),
+    specifications: { "Sweep": "300mm", "Type": "Cabin" }
+  },
+  {
+    id: "AFP700706",
+    name: "Frost Prime",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 1600,
+    wattage: "25W",
+    details: "Axial fan featuring LED lights.",
+    image: getImg("Environ BLDC Exhaust.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(5),
+    specifications: { "Type": "Axial", "LED": "Yes" }
+  },
+  {
+    id: "EFS850912",
+    name: "Havoc",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3200,
+    wattage: "45W",
+    details: "Exhaust fan with metal blades and bird guard.",
+    image: getImg("Environ BLDC Exhaust.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(10),
+    specifications: { "Type": "Exhaust", "Material": "Metal" }
+  },
+
+  // --- 98-117: LED LIGHTING FROM CATALOGUE ---
+  {
+    id: "GL91241X",
+    name: "Zolo Slim Panel 6W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 400,
+    wattage: "6W",
+    details: "Ultra-slim LED panel with inbuilt driver.",
+    image: getImg("Zolo Dual Color 3W+3W.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(5),
+    specifications: { "Series": "Zolo", "Cut Out": "97mm" }
+  },
+  {
+    id: "GL91242X",
+    name: "Zolo Slim Panel 10W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 580,
+    wattage: "10W",
+    details: "Mid-range Zolo series panel.",
+    image: getImg("Zolo Dual Color 3W+3W.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(8),
+    specifications: { "Series": "Zolo", "Cut Out": "125mm" }
+  },
+  {
+    id: "GL91357X",
+    name: "Twilite LED Panel",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 560,
+    wattage: "12W",
+    details: "Panel featuring a blue ambient ring.",
+    image: getImg("Zolo Dual Color 12W+12W.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(4),
+    specifications: { "Colors": "Daylight + Blue" }
+  },
+  {
+    id: "GL9C0307109X",
+    name: "Orzo Downlight 9W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 730,
+    wattage: "9W",
+    details: "Premium PDC Aluminium downlight.",
+    image: getImg("Apollo Downlight 10W.webp"),
+    rating: 4.5,
+    reviews: generateReviews(6),
+    specifications: { "Body": "Aluminium", "Driver": "External" }
+  },
+  {
+    id: "GL91249X",
+    name: "Tesla Round Downlight 8W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 655,
+    wattage: "8W",
+    details: "Sleek round Tesla series downlight.",
+    image: getImg("Rimless Surface Panel 12W.jpg"),
+    rating: 4.4,
+    reviews: generateReviews(7),
+    specifications: { "Series": "Tesla", "Cut Out": "109mm" }
+  },
+  {
+    id: "GL9C0302112X",
+    name: "Enzo Round Downlight 12W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 425,
+    wattage: "12W",
+    details: "Economical and bright round downlight.",
+    image: getImg("Lumor Anora Downlight 10W.jpg"),
+    rating: 4.3,
+    reviews: generateReviews(12),
+    specifications: { "Series": "Enzo", "Shape": "Round" }
+  },
+  {
+    id: "GL9C1304110X",
+    name: "Coral Downlight 10W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 585,
+    wattage: "10W",
+    details: "Colored ambient effect downlight.",
+    image: getImg("Zolo Dual Color 12W+12W.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(5),
+    specifications: { "Effect": "Ambient" }
+  },
+  {
+    id: "GL91514X",
+    name: "Jugnoo Downlight 7W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 300,
+    wattage: "7W",
+    details: "Vibrant mini series downlight.",
+    image: getImg("Glazz Downlight 5W.webp"),
+    rating: 4.5,
+    reviews: generateReviews(20),
+    specifications: { "Series": "Jugnoo", "Size": "Compact" }
+  },
+  {
+    id: "GL91459X",
+    name: "Miro Downlight 3W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 215,
+    wattage: "3W",
+    details: "Perfect for cabinetry or accent lighting.",
+    image: getImg("Todos Panel 3W.webp"),
+    rating: 4.4,
+    reviews: generateReviews(10),
+    specifications: { "Series": "Miro", "Type": "Accent" }
+  },
+  {
+    id: "GL91512X",
+    name: "Duos Round 6W+3W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 560,
+    wattage: "9W",
+    details: "Two-in-one decorative downlight.",
+    image: getImg("Zolo Dual Color 12W+12W.jpg"),
+    rating: 4.9,
+    reviews: generateReviews(3),
+    specifications: { "Type": "Dual Light" }
+  },
+  {
+    id: "GL91508X",
+    name: "G-Spiro Round 5W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 330,
+    wattage: "5W",
+    details: "Vibrant spiral diffusion design.",
+    image: getImg("Glazz Downlight 5W.webp"),
+    rating: 4.2,
+    reviews: generateReviews(15),
+    specifications: { "Series": "G-Spiro" }
+  },
+  {
+    id: "GL90103X",
+    name: "Magicline LED Batten 20W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 580,
+    wattage: "20W",
+    details: "Slim high lumen output batten.",
+    image: getImg("Altabright Batten 20W.webp"),
+    rating: 4.6,
+    reviews: generateReviews(25),
+    specifications: { "Series": "Magicline", "Length": "1135mm" }
+  },
+  {
+    id: "GL91033X",
+    name: "Wow LED Lamp 9W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 168,
+    wattage: "9W",
+    details: "Energy-saving LED bulb.",
+    image: getImg("Dura Saver Bulb 12W.jpg"),
+    rating: 4.5,
+    reviews: generateReviews(50),
+    specifications: { "Base": "B22", "Series": "Wow" }
+  },
+  {
+    id: "GL91001X",
+    name: "Genie LED Night Lamp",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 55,
+    wattage: "0.5W",
+    details: "Colorful 0.5W night lamp.",
+    image: getImg("Goldmedal LED Lamp 5W.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(100),
+    specifications: { "Series": "Genie", "Type": "Night Lamp" }
+  },
+  {
+    id: "GL90701X",
+    name: "Crimson LED Strip 5m",
+    category: "Smart Home",
+    brand: "Goldmedal",
+    price: 580,
+    wattage: "25W",
+    details: "Flexible strip for mood lighting.",
+    image: getImg("Panasonic Smart WiFi Bulb.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(15),
+    specifications: { "Length": "5 Meters" }
+  },
+  {
+    id: "GL9C0903530X",
+    name: "Beacon Flood Light 30W",
+    category: "Outdoor Lighting",
+    brand: "Goldmedal",
+    price: 1450,
+    wattage: "30W",
+    details: "Rugged outdoor light with IP65 protection.",
+    image: getImg("Panasonic Flood Light 50W.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(5),
+    specifications: { "IP Rating": "IP65" }
+  },
+  {
+    id: "GL90801X",
+    name: "Optimus Street Light 20W",
+    category: "Outdoor Lighting",
+    brand: "Goldmedal",
+    price: 1695,
+    wattage: "20W",
+    details: "Street lighting for residential complexes.",
+    image: getImg("Panasonic Street Light 25W.jpg"),
+    rating: 4.5,
+    reviews: generateReviews(4),
+    specifications: { "Series": "Optimus" }
+  },
+  {
+    id: "GL9U213X",
+    name: "Nuvoline Suspended Light",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 1485,
+    wattage: "12W",
+    details: "Designer suspended linear light.",
+    image: getImg("Loofix Linear 6W.jpg"),
+    rating: 4.9,
+    reviews: generateReviews(2),
+    specifications: { "Type": "Suspended" }
+  },
+  {
+    id: "GL9X101",
+    name: "Zolo Round Panel 15W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 780,
+    wattage: "15W",
+    details: "Powerful round Zolo series panel.",
+    image: getImg("Zolo Dual Color 12W+12W.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(6),
+    specifications: { "Series": "Zolo", "Shape": "Round" }
+  },
+  {
+    id: "GL9X102",
+    name: "Miro Square Downlight 6W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 340,
+    wattage: "6W",
+    details: "Square accent downlight for interiors.",
+    image: getImg("Geolite Square Panel 4W.jpg"),
+    rating: 4.5,
+    reviews: generateReviews(10),
+    specifications: { "Series": "Miro", "Shape": "Square" }
+  },
+
+  // --- 118-128: ADDITIONAL FANS FROM 2025 CATALOGUE ---
+  {
+    id: "SCFP302548",
+    name: "Opus BLDC",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 4100,
+    wattage: "30W",
+    details: "Energy-efficient fan with BLDC technology.",
+    image: getImg("Opus Prime BLDC.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(6),
+    specifications: { "Sweep": "1200mm", "Speed": "350 RPM" }
+  },
+  {
+    id: "SCFP300524",
+    name: "Insignia 600",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2900,
+    wattage: "65W",
+    details: "Ultra high speed compact decorative fan.",
+    image: getImg("Tavola Decorative.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(4),
+    specifications: { "Sweep": "600mm", "Speed": "850 RPM" }
+  },
+  {
+    id: "SCFP301748",
+    name: "Eva Prime",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3250,
+    wattage: "53W",
+    details: "Sleek and stylish decorative fan.",
+    image: getImg("Mayra Classic.jpg"),
+    rating: 4.5,
+    reviews: generateReviews(7),
+    specifications: { "Sweep": "1200mm", "Speed": "350 RPM" }
+  },
+  {
+    id: "SCFP302348",
+    name: "Legacy Prime",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3450,
+    wattage: "52W",
+    details: "Premium decorative fan with metallized rings.",
+    image: getImg("Airavat Dlx.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(9),
+    specifications: { "Sweep": "1200mm", "Speed": "390 RPM" }
+  },
+  {
+    id: "SCFS501348",
+    name: "Legacy 390",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 1950,
+    wattage: "52W",
+    details: "Standard ceiling fan with sophisticated design.",
+    image: getImg("Airavat Standard.jpg"),
+    rating: 4.2,
+    reviews: generateReviews(12),
+    specifications: { "Sweep": "1200mm", "Speed": "390 RPM" }
+  },
+  {
+    id: "CFS500948",
+    name: "Geo Fox BLDC",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2750,
+    wattage: "35W",
+    details: "High performance fan with 65% energy savings.",
+    image: getImg("Marut BLDC.jpg"),
+    rating: 4.4,
+    reviews: generateReviews(15),
+    specifications: { "Sweep": "1200mm", "Motor": "BLDC" }
+  },
+  {
+    id: "SCFS501648",
+    name: "Volt 400",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 1750,
+    wattage: "52W",
+    details: "Economy fan designed for affordable comfort.",
+    image: getImg("Airavat Standard.jpg"),
+    rating: 4.1,
+    reviews: generateReviews(20),
+    specifications: { "Sweep": "1200mm", "Speed": "400 RPM" }
+  },
+  {
+    id: "SCFS501848",
+    name: "Gati 400 Neo",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 1800,
+    wattage: "50W",
+    details: "Affordable economy fan with high-speed performance.",
+    image: getImg("Airavat Standard.jpg"),
+    rating: 4.2,
+    reviews: generateReviews(8),
+    specifications: { "Sweep": "1200mm", "Speed": "400 RPM" }
+  },
+  {
+    id: "SCFE700948",
+    name: "Speedo Air",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 1850,
+    wattage: "52W",
+    details: "Standard economy fan defined by timeless style.",
+    image: getImg("Airavat Standard.jpg"),
+    rating: 4.3,
+    reviews: generateReviews(10),
+    specifications: { "Sweep": "1200mm", "Type": "Economy" }
+  },
+  {
+    id: "AFP700506",
+    name: "Airfy Neo",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 1450,
+    wattage: "18W",
+    details: "Axial exhaust fan featuring built-in lighting.",
+    image: getImg("Environ BLDC Exhaust.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(5),
+    specifications: { "Sweep": "150mm", "Speed": "2200 RPM" }
+  },
+  {
+    id: "EFS850112",
+    name: "Torque DBB",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 2600,
+    wattage: "75W",
+    details: "Powerful vent exhaust fan with metal blades.",
+    image: getImg("Environ BLDC Exhaust.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(8),
+    specifications: { "Sweep": "300mm", "Speed": "1350 RPM" }
+  },
+
+  // --- 129-150: NEW LED LIGHTING ITEMS FROM CATALOGUE ---
+  {
+    id: "GL91260X",
+    name: "Geolite Round Panel 18W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 1135,
+    wattage: "18W",
+    details: "High-power 18W round panel with inbuilt driver.",
+    image: getImg("Geolite Round Panel 15W.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(5),
+    specifications: { "Shape": "Round", "Cut Out": "203mm", "Dimension": "220x30" }
+  },
+  {
+    id: "GL9C0203215X",
+    name: "Geolite Square Panel 15W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 730,
+    wattage: "15W",
+    details: "Standard 15W square panel for commercial and residential use.",
+    image: getImg("Geolite Square Panel 12W.webp"),
+    rating: 4.6,
+    reviews: generateReviews(3),
+    specifications: { "Shape": "Square", "Cut Out": "155x155", "Dimension": "170x170x30" }
+  },
+  {
+    id: "GL9C0204108X",
+    name: "Quoro Round Panel 8W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 625,
+    wattage: "8W",
+    details: "8W Premium panel with external driver for enhanced reliability.",
+    image: getImg("Quoro Round Panel 12W.jpeg"),
+    rating: 4.7,
+    reviews: generateReviews(4),
+    specifications: { "Series": "Quoro", "Driver": "External", "Cut Out": "105mm" }
+  },
+  {
+    id: "GL9C0204208X",
+    name: "Quoro Square Panel 8W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 580,
+    wattage: "8W",
+    details: "High-efficiency 8W square panel with slim PDC-Aluminium body.",
+    image: getImg("Quoro Square Panel 12W.jpg"),
+    rating: 4.5,
+    reviews: generateReviews(5),
+    specifications: { "Series": "Quoro", "Shape": "Square", "Cut Out": "105x105" }
+  },
+  {
+    id: "GL91243CCT",
+    name: "Zolo Slim Panel 15W CCT",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 940,
+    wattage: "15W",
+    details: "Switch-controlled 3-color temperature panel for adjustable mood lighting.",
+    image: getImg("Zolo Dual Color 12W+12W.jpg"),
+    rating: 4.9,
+    reviews: generateReviews(8),
+    specifications: { "Feature": "CCT Adjustable", "Cut Out": "149mm", "Driver": "Inbuilt" }
+  },
+  {
+    id: "GL91244X",
+    name: "Zolo Slim Panel 20W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 1050,
+    wattage: "20W",
+    details: "Powerful 20W round slim panel for high illumination.",
+    image: getImg("Zolo Dual Color 3W+3W.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(10),
+    specifications: { "Series": "Zolo", "Cut Out": "199mm", "Dimension": "220x27" }
+  },
+  {
+    id: "GL91358X",
+    name: "Twilite LED Panel 18W+4W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 810,
+    wattage: "22W",
+    details: "Large Twilite panel featuring a striking blue ambient ring.",
+    image: getImg("Zolo Dual Color 12W+12W.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(4),
+    specifications: { "Color": "Cool Day + Blue", "Series": "Twilite", "Cut Out": "95mm" }
+  },
+  {
+    id: "GL91274X",
+    name: "Zion Adjustable Panel 18W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 1240,
+    wattage: "18W",
+    details: "Convenient panel with adjustable clips for varying ceiling cut-out sizes.",
+    image: getImg("Zion Adjustable Panel 24W.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(7),
+    specifications: { "Adjustable Cut Out": "65-150mm", "Wattage": "18W" }
+  },
+  {
+    id: "GL91319X",
+    name: "Apollo Downlight 15W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 1140,
+    wattage: "15W",
+    details: "Premium PDC Aluminium downlight with deep recess for low glare.",
+    image: getImg("Apollo Downlight 10W.webp"),
+    rating: 4.7,
+    reviews: generateReviews(5),
+    specifications: { "Series": "Apollo", "Cut Out": "145mm", "Driver": "External" }
+  },
+  {
+    id: "GL9C0307112X",
+    name: "Orzo Downlight 12W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 780,
+    wattage: "12W",
+    details: "Sleek and efficient Orzo series downlight with external driver technology.",
+    image: getImg("Apollo Downlight 10W.webp"),
+    rating: 4.5,
+    reviews: generateReviews(6),
+    specifications: { "Cut Out": "95mm", "Body": "Aluminium", "Driver": "External" }
+  },
+  {
+    id: "GL9C0307136X",
+    name: "Orzo Downlight 36W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 1820,
+    wattage: "36W",
+    details: "High-power industrial grade downlight for expansive ceiling heights.",
+    image: getImg("Apollo Downlight 10W.webp"),
+    rating: 4.9,
+    reviews: generateReviews(3),
+    specifications: { "Cut Out": "195mm", "Driver": "External", "Wattage": "36W" }
+  },
+  {
+    id: "GL91350X",
+    name: "Ola Detachable 12W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 915,
+    wattage: "12W",
+    details: "User-friendly detachable design for easy maintenance and cleaning.",
+    image: getImg("Ola Detachable Downlight 6W.webp"),
+    rating: 4.7,
+    reviews: generateReviews(9),
+    specifications: { "Feature": "Detachable", "Series": "Ola", "Cut Out": "158mm" }
+  },
+  {
+    id: "GL91251X",
+    name: "Tesla Downlight 15W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 1040,
+    wattage: "15W",
+    details: "High-lumen PDC Aluminium downlight from the modern Tesla series.",
+    image: getImg("Rimless Surface Panel 12W.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(6),
+    specifications: { "Series": "Tesla", "Cut Out": "159mm", "Driver": "External" }
+  },
+  {
+    id: "GL91366X",
+    name: "Glazz Downlight 15W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 690,
+    wattage: "15W",
+    details: "Decorative glass-finish downlight offering a premium aesthetic touch.",
+    image: getImg("Glazz Downlight 5W.webp"),
+    rating: 4.5,
+    reviews: generateReviews(10),
+    specifications: { "Finish": "Glass", "Series": "Glazz", "Cut Out": "125mm" }
+  },
+  {
+    id: "GL91334X",
+    name: "Wella Downlight 12W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 645,
+    wattage: "12W",
+    details: "Compact and stylish Wella series downlight for modern ceiling designs.",
+    image: getImg("Wella Downlight 6W.jpg"),
+    rating: 4.4,
+    reviews: generateReviews(12),
+    specifications: { "Series": "Wella", "Cut Out": "153mm", "Dimension": "170x37" }
+  },
+  {
+    id: "GL9C0304110CNW",
+    name: "Tango Downlight 10W CNW",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 675,
+    wattage: "10W",
+    details: "Premium Tango downlight in Cool Natural White for specialized interiors.",
+    image: getImg("Lumor Anora Downlight 10W.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(5),
+    specifications: { "Series": "Tango", "Color": "CNW", "Cut Out": "99mm" }
+  },
+  {
+    id: "GL9C0303103X",
+    name: "Jugnoo Downlight 3W CCT",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 310,
+    wattage: "3W",
+    details: "Small but effective color-changing downlight for accent tasks.",
+    image: getImg("Glazz Downlight 5W.webp"),
+    rating: 4.5,
+    reviews: generateReviews(15),
+    specifications: { "Series": "Jugnoo", "Feature": "CCT Adjustable", "Cut Out": "45mm" }
+  },
+  {
+    id: "GL91459RG",
+    name: "Miro Downlight 3W RG",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 215,
+    wattage: "3W",
+    details: "Miniature downlight with a luxurious Rose Gold finish.",
+    image: getImg("Todos Panel 3W.webp"),
+    rating: 4.8,
+    reviews: generateReviews(8),
+    specifications: { "Finish": "Rose Gold", "Series": "Miro", "Cut Out": "43mm" }
+  },
+  {
+    id: "GL91499CCT",
+    name: "G-Fix Downlight 3W CCT",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 200,
+    wattage: "3W",
+    details: "Compact series downlight with adjustable color temperature functionality.",
+    image: getImg("Glazz Downlight 5W.webp"),
+    rating: 4.4,
+    reviews: generateReviews(10),
+    specifications: { "Series": "G-Fix", "Feature": "CCT/RBP", "Cut Out": "55mm" }
+  },
+  {
+    id: "GL91529X",
+    name: "Belo Downlight 7W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 270,
+    wattage: "7W",
+    details: "Affordable and elegant Belo series downlight with uniform beam output.",
+    image: getImg("Lumor Anora Downlight 10W.jpg"),
+    rating: 4.3,
+    reviews: generateReviews(14),
+    specifications: { "Series": "Belo", "Cut Out": "48mm", "Dimension": "86.5x43" }
+  },
+  {
+    id: "GL9C0717125BK",
+    name: "Odin COB Spotlight 25W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 3590,
+    wattage: "25W",
+    details: "High-intensity COB spotlight for focused architectural highlights.",
+    image: getImg("Evo COB Module 7W.jpg"),
+    rating: 4.9,
+    reviews: generateReviews(5),
+    specifications: { "Series": "Odin", "Source": "COB", "Cut Out": "85mm" }
+  },
+  {
+    id: "GL91601X",
+    name: "G-Tilt Downlight 6W",
+    category: "LED Lighting",
+    brand: "Goldmedal",
+    price: 900,
+    wattage: "6W",
+    details: "Adjustable tilt mechanism for directed spotlighting in residential areas.",
+    image: getImg("G-Tilt COB Downlight 3W.jpg"),
+    rating: 4.6,
+    reviews: generateReviews(7),
+    specifications: { "Feature": "Tiltable", "Source": "COB", "Cut Out": "75mm" }
+  },
+  // --- 151-173: ADDITIONAL MODELS ---
+  {
+    id: "SCFP301050_NEO",
+    name: "Hush-Flo Neo BLDC",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 4350,
+    wattage: "35W",
+    details: "Ultra-quiet BLDC motor with advanced aerodynamics and high energy efficiency.",
+    image: getImg("Hush-Flo BLDC.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(8),
+    specifications: { "Sweep": "1200mm", "Motor": "BLDC", "Remote": "Yes" }
+  },
+  {
+    id: "SCFZ101948_PRIME",
+    name: "Fabia Prime Decorative",
+    category: "Fans",
+    brand: "Goldmedal",
+    price: 3550,
+    wattage: "53W",
+    details: "Premium decorative ceiling fan with metallized ornaments and a sleek body design.",
+    image: getImg("Fabia Super Decorative.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(5),
+    specifications: { "Sweep": "1200mm", "Speed": "350 RPM", "Finish": "Metallic" }
+  },
+  // --- 174-175: MURUGAPPA GROUP FANS & VARIANTS ---
+  {
+    id: "MUR-TEJAS-FAN",
+    name: "CG High Spped Magnus",
+    category: "Fans",
+    brand: "Murugappa Group",
+    price: 2450,
+    wattage: "52W",
+    details: "High-performance Tejas ceiling fan from Murugappa Group, designed for heavy-duty use and durability.",
+    image: getImg("Murugappa 1.jpg"),
+    rating: 4.8,
+    reviews: generateReviews(10),
+    specifications: { "Sweep": "1200mm", "Speed": "380 RPM", "Variants": "Standard, High-Speed, Metallic" }
+  },
+  {
+    id: "MUR-RIDE-FAN",
+    name: "CG High Spped Ceiling Fan",
+    category: "Fans",
+    brand: "Murugappa Group",
+    price: 2150,
+    wattage: "65W",
+    details: "Reliable Ride series high-speed fan from Murugappa Group, offering instant cooling and superior air thrust.",
+    image: getImg("Murugappa 2.jpg"),
+    rating: 4.7,
+    reviews: generateReviews(8),
+    specifications: { "Sweep": "900mm", "Speed": "850 RPM", "Variants": "Standard, Cabin, Decorative" }
   }
 ];

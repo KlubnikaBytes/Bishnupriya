@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Zap, Fan, Server, Home, Shield, Sun } from 'lucide-react';
+import { ArrowRight, Zap, Fan, Server, Home, Shield, Sun, Battery } from 'lucide-react';
 import { categories } from '../data/itemsData';
 
-// Map categories to icons and specific cover images
+// Map categories to icons and optimized high-res cover images
 const categoryConfig = {
   "LED Lighting": { 
     icon: <Sun size={24} />, 
@@ -44,72 +44,87 @@ const categoryConfig = {
   "Outdoor Lighting": { 
     icon: <Sun size={24} />, 
     desc: "Floodlights, street lights, and garden lights.",
-    image: "https://images.unsplash.com/photo-1517427677506-ade074eb1432?q=80&w=800&auto=format&fit=crop"
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvBoY_dZ24ba1nHeaVrfrbhAWqcL7gfHDzDQ&s"
   }
 };
 
 const Categories = () => {
   const navigate = useNavigate();
-
-  // Filter out "All" from the list for display
   const displayCategories = categories.filter(cat => cat !== "All");
 
-  const handleCategoryClick = (category) => {
-    // Navigate to store and pass the selected category in state
-    navigate('/store', { state: { selectedCategory: category } });
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-4">
-            Explore Categories
-          </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Browse our extensive range of electrical components organized for your convenience.
-          </p>
+    <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500">
+      <div className="max-w-[1600px] mx-auto px-6 lg:px-16 py-24">
+        
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+          <div className="max-w-3xl">
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-emerald-600 dark:text-emerald-500 text-[10px] font-black uppercase tracking-[0.5em] mb-6"
+            >
+              Curation & Design
+            </motion.p>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-6xl font-light text-slate-900 dark:text-white uppercase tracking-tighter leading-none"
+            >
+              Explore our <span className="font-black italic text-emerald-600 dark:text-emerald-500">Collections</span>
+            </motion.h1>
+          </div>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="hidden lg:block w-32 h-px bg-slate-200 dark:bg-slate-800 mb-4"
+          />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
           {displayCategories.map((cat, index) => {
             const config = categoryConfig[cat] || { icon: <Zap />, desc: "Electrical essentials.", image: "" };
             
             return (
               <motion.div
                 key={cat}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                onClick={() => handleCategoryClick(cat)}
-                className="group relative h-80 rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300"
+                transition={{ delay: index * 0.05, duration: 0.8 }}
+                onClick={() => navigate('/store', { state: { selectedCategory: cat } })}
+                className="group cursor-pointer"
               >
-                {/* Background Image */}
-                <div className="absolute inset-0">
+                {/* Portrait Image Container (Harold Electricals Style) */}
+                <div className="relative aspect-[4/5] overflow-hidden bg-slate-100 dark:bg-slate-900 mb-8 rounded-sm shadow-sm group-hover:shadow-2xl transition-all duration-700">
                   <img 
                     src={config.image} 
                     alt={cat} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                </div>
-
-                {/* Content */}
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div className="mb-4 text-green-400 transform -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                  {/* Subtle hover overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+                  
+                  {/* Floating Icon revealed on hover */}
+                  <div className="absolute top-6 right-6 p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-full text-slate-900 dark:text-white transform scale-0 group-hover:scale-100 transition-transform duration-500 shadow-xl">
                     {config.icon}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors">
-                    {cat}
-                  </h3>
-                  <p className="text-slate-300 text-sm mb-6 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
+                </div>
+
+                {/* Typography and Reveal Line */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white uppercase tracking-tight group-hover:text-emerald-600 dark:group-hover:text-emerald-500 transition-colors duration-300">
+                      {cat}
+                    </h3>
+                    <div className="h-px flex-1 bg-slate-100 dark:bg-slate-800 mx-6 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
+                    <ArrowRight size={20} className="text-slate-300 dark:text-slate-600 group-hover:text-emerald-600 transform -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500" />
+                  </div>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm font-light leading-relaxed max-w-[90%]">
                     {config.desc}
                   </p>
-                  <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                    View Products <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                  </div>
                 </div>
               </motion.div>
             );
